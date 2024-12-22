@@ -1,4 +1,3 @@
-modLoader="javafml:1.21.1"
 loaderVersion="[39,)"
 license="MIT"
 [[mods]]
@@ -9,6 +8,22 @@ description="A mod that introduces Sagecraft gameplay mechanics."
 [[dependencies.sagecraft]]
     modId="forge"
     mandatory=true
-    versionRange="[39.0.0,)"
+    versionRange="[52.0.28
+)"
+    ordering="NONE"
+    side="BOTH"
+=======
+modLoader="javafml:1.21.1"
+loaderVersion="[52.0.28,)"
+license="MIT"
+[[mods]]
+modId="ImmortalSage"
+version="1.0.0"
+displayName="Sagecraft"
+description="A mod that introduces Sagecraft gameplay mechanics."
+[[dependencies.sagecraft]]
+    modId="forge"
+    mandatory=true
+    versionRange="[52.0.28,)"
     ordering="NONE"
     side="BOTH"
