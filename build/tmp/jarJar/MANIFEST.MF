@@ -1,0 +1,5 @@
+Specification-Title: Sage's Journey
+Specification-Version: 1
+Implementation-Version: 0.0.1
+Specification-Vendor: WuLong
+Implementation-Vendor: WuLong
