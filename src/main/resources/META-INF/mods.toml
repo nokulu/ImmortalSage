@@ -1,0 +1,14 @@
+modLoader="javafml:1.21.1"
+loaderVersion="[39,)"
+license="MIT"
+[[mods]]
+modId="sagecraft"
+version="1.0.0"
+displayName="Sagecraft"
+description="A mod that introduces Sagecraft gameplay mechanics."
+[[dependencies.sagecraft]]
+    modId="forge"
+    mandatory=true
+    versionRange="[39.0.0,)"
+    ordering="NONE"
+    side="BOTH"

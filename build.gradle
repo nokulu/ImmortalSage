@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'com.example.sagecraft'
+version '1.0.0'
+
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://files.minecraftforge.net/maven' }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.21.1-39.0.0'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'Sagecraft',
+            'Implementation-Version': version
+        )
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
