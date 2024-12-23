@@ -1,17 +1,17 @@
 package com.example.sagecraft;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.network.chat.Component; // Import for Component
-import net.minecraft.network.chat.OutgoingChatMessage; // Import for OutgoingChatMessage
-import net.minecraft.network.chat.PlayerChatMessage; // Import for PlayerChatMessage
-import net.minecraft.network.chat.ChatType; // Import for ChatType
-import net.minecraftforge.event.entity.player.PlayerEvent; // Existing import
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraft.client.Minecraft; // Import for Minecraft instance
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.OutgoingChatMessage;
+import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class QiManager {
@@ -80,7 +80,6 @@ public class QiManager {
         if (canBreakthrough()) {
             // Increase player stats
             player.setHealth(player.getHealth() + 10); // Gain 10 HP
-            //add more stats here, attack damage, armor ammount... etc
             
             // Trigger lightning strikes
             int lightningStrikes = (int) Math.pow(4, currentRealmIndex); // Quadruples each time
@@ -90,12 +89,22 @@ public class QiManager {
 
             // Move to the next realm and update player name tag
             RealmDisplayManager realmDisplayManager = new RealmDisplayManager();
-            realmDisplayManager.updatePlayerNameTag(player, REALMS[currentRealmIndex], "Current Path"); // Replace "Current Path" with the actual path variable if available
+            realmDisplayManager.updatePlayerNameTag(player, REALMS[currentRealmIndex], "Current Path");
             currentRealmIndex++;
             player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You have broken through to the realm of " + REALMS[currentRealmIndex - 1] + "!")), false, ChatType.bind(ChatType.CHAT, player));
         } else {
             player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You do not have enough Qi to breakthrough.")), false, ChatType.bind(ChatType.CHAT, player));
         }
+    }
+
+    public CompoundTag serializeNBT() {
+        CompoundTag nbt = new CompoundTag();
+        nbt.putInt("qi", this.qi);
+        return nbt;
+    }
+
+    public void deserializeNBT(CompoundTag nbt) {
+        this.qi = nbt.getInt("qi");
     }
 
     @SubscribeEvent

@@ -1,21 +1,20 @@
 package com.example.sagecraft;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.network.chat.Component; // Import for Component
-import net.minecraft.network.chat.OutgoingChatMessage; // Import for OutgoingChatMessage
-import net.minecraft.network.chat.PlayerChatMessage; // Import for PlayerChatMessage
-import net.minecraft.network.chat.ChatType; // Import for ChatType
-import net.minecraftforge.event.entity.player.PlayerEvent; // Existing import
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraft.client.Minecraft; // Import for Minecraft instance
-import net.minecraft.nbt.CompoundTag; // Import for CompoundTag
-
 import java.util.Timer;
-import java.util.TimerTask;
+import java.util.TimerTask; // Import for Component
+
+import net.minecraft.client.Minecraft; // Import for OutgoingChatMessage
+import net.minecraft.nbt.CompoundTag; // Import for PlayerChatMessage
+import net.minecraft.network.chat.ChatType; // Import for ChatType
+import net.minecraft.network.chat.OutgoingChatMessage; // Existing import
+import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.player.PlayerEvent; // Import for Minecraft instance
+import net.minecraftforge.eventbus.api.SubscribeEvent; // Import for CompoundTag
+import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
-public class QiManagerUpdated {
+public class QiManager {
     private int qi;
     private int currentRealmIndex = 0; // Start at Mortal
     private static final String[] REALMS = {
