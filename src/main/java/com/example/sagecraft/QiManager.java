@@ -1,8 +1,5 @@
 package com.example.sagecraft;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ChatType;
@@ -27,10 +24,11 @@ public class QiManager {
         1000, 4000, 16000, 64000, 256000, 1024000, 4096000, 16384000, 65536000
     };
     
-    private Timer meditationTimer;
+    private boolean isMeditating; // Track meditation
 
     public QiManager() {
         this.qi = 0; // Initialize Qi to 0
+        this.isMeditating = false; // Initialize meditation state
     }
 
     public void gainQi(int amount) {
@@ -47,25 +45,16 @@ public class QiManager {
     }
 
     public void meditate(Player player) {
-        if (meditationTimer != null) {
-            return; // Already meditating
-        }
-
-        meditationTimer = new Timer();
-        meditationTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                gainQi(1); // Gain 1 Qi every second
-                player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You are meditating. Current Qi: " + qi)), false, ChatType.bind(ChatType.CHAT, player));
-            }
-        }, 0, 1000); // Schedule to run every second
+        isMeditating = true; // Set meditation state
+        // Additional logic for meditation can be added here
     }
 
     public void stopMeditation() {
-        if (meditationTimer != null) {
-            meditationTimer.cancel();
-            meditationTimer = null;
-        }
+        isMeditating = false; // Reset meditation state
+    }
+
+    public boolean isMeditating() {
+        return isMeditating; // Return current meditation state
     }
 
     public int getQi() {
@@ -80,7 +69,6 @@ public class QiManager {
         if (canBreakthrough()) {
             // Increase player stats
             player.setHealth(player.getHealth() + 10); // Gain 10 HP
-            
             // Trigger lightning strikes
             int lightningStrikes = (int) Math.pow(4, currentRealmIndex); // Quadruples each time
             for (int i = 0; i < lightningStrikes; i++) {
@@ -115,3 +103,4 @@ public class QiManager {
         }
     }
 }
+</create_file>
