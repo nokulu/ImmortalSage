@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.jimfs:jimfs:1.3.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.google.jimfs" artifactId="jimfs" version="1.3.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/com.google.jimfs/jimfs/1.3.0/93096472c3654a761c40c8e5d4ad82a7c1a0fd54/jimfs-1.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/com.google.jimfs/jimfs/1.3.0/2ee52c961ee33b920432c3b4251b8a6de9bcde50/jimfs-1.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.minecraftforge:unsafe:0.9.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.minecraftforge" artifactId="unsafe" version="0.9.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/unsafe/0.9.2/33bad02861cabd77c54a8c9d1205e8638bbbbb4f/unsafe-0.9.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/unsafe/0.9.2/82f2e5f0d152925ac7c9accbe73e560e84255769/unsafe-0.9.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.minecraftforge:accesstransformers:8.2.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.minecraftforge" artifactId="accesstransformers" version="8.2.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/accesstransformers/8.2.0/36503cf42f74f03fdfbac400d77a90c93a89b8d4/accesstransformers-8.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/accesstransformers/8.2.0/49f1d630fa642b817a711de5134af797113b3653/accesstransformers-8.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

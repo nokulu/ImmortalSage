@@ -1,13 +1,16 @@
+/*
 package main.java.com.example.sagecraft;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent; // Ensure this is the correct import
+import net.minecraftforge.event.entity.player.PlayerEvent; // Check if this is needed
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.core.BlockPos;
-
+import net.minecraftforge.event.world.BlockEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,3 +79,4 @@ public class FormationManager {
         }
     }
 }
+*/ 

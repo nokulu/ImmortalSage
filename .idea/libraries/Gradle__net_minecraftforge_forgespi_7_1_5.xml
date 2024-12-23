@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.minecraftforge:forgespi:7.1.5" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.minecraftforge" artifactId="forgespi" version="7.1.5" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/forgespi/7.1.5/c01beea469b66cf787614239b7e0f791329b3816/forgespi-7.1.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/forgespi/7.1.5/257e15b40d0dd170e7c02a6e13e6db851ac9fe9e/forgespi-7.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,9 +1,14 @@
-package main.java.com.example.sagecraft;
+package com.example.sagecraft;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraft.network.chat.Component; // Import for Component
+import net.minecraft.network.chat.OutgoingChatMessage; // Import for OutgoingChatMessage
+import net.minecraft.network.chat.PlayerChatMessage; // Import for PlayerChatMessage
+import net.minecraft.network.chat.ChatType; // Import for ChatType
+import net.minecraftforge.event.entity.player.PlayerEvent; // Existing import
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraft.client.Minecraft; // Import for Minecraft instance
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -51,7 +56,7 @@ public class QiManager {
             @Override
             public void run() {
                 gainQi(1); // Gain 1 Qi every second
-                player.sendMessage(new StringTextComponent("You are meditating. Current Qi: " + qi));
+                player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You are meditating. Current Qi: " + qi)), false, ChatType.bind(ChatType.CHAT, player));
             }
         }, 0, 1000); // Schedule to run every second
     }
@@ -75,29 +80,29 @@ public class QiManager {
         if (canBreakthrough()) {
             // Increase player stats
             player.setHealth(player.getHealth() + 10); // Gain 10 HP
-            // Assuming player has methods to increase armor and damage
-            player.increaseArmor(3); // Gain 3 armor
-            player.increaseDamage(5); // Gain 5 damage
+            //add more stats here, attack damage, armor ammount... etc
             
             // Trigger lightning strikes
             int lightningStrikes = (int) Math.pow(4, currentRealmIndex); // Quadruples each time
             for (int i = 0; i < lightningStrikes; i++) {
-                // Logic to trigger lightning strike on player
-                player.sendMessage(new StringTextComponent("You are struck by lightning!"));
+                player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You are struck by lightning!")), false, ChatType.bind(ChatType.CHAT, player));
             }
 
-            // Move to the next realm
+            // Move to the next realm and update player name tag
+            RealmDisplayManager realmDisplayManager = new RealmDisplayManager();
+            realmDisplayManager.updatePlayerNameTag(player, REALMS[currentRealmIndex], "Current Path"); // Replace "Current Path" with the actual path variable if available
             currentRealmIndex++;
-            player.sendMessage(new StringTextComponent("You have broken through to the realm of " + REALMS[currentRealmIndex - 1] + "!"));
+            player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You have broken through to the realm of " + REALMS[currentRealmIndex - 1] + "!")), false, ChatType.bind(ChatType.CHAT, player));
         } else {
-            player.sendMessage(new StringTextComponent("You do not have enough Qi to breakthrough."));
+            player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You do not have enough Qi to breakthrough.")), false, ChatType.bind(ChatType.CHAT, player));
         }
     }
 
     @SubscribeEvent
     public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        Player player = event.getPlayer();
-        player.sendMessage(new StringTextComponent("You have " + qi + " Qi."));
+        Player player = Minecraft.getInstance().player; // Retrieve the player instance from the event
+        if (player != null) {
+            player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You have " + qi + " Qi.")), false, ChatType.bind(ChatType.CHAT, player));
+        }
     }
 }
-</create_file>

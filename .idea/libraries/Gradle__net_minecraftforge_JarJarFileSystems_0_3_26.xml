@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.minecraftforge:JarJarFileSystems:0.3.26" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.minecraftforge" artifactId="JarJarFileSystems" version="0.3.26" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/JarJarFileSystems/0.3.26/4b48cd32749b87a18afee96f33b825305feea289/JarJarFileSystems-0.3.26.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/JarJarFileSystems/0.3.26/3642d160f2a2a3aaefe87116bb262e866fd151cb/JarJarFileSystems-0.3.26-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

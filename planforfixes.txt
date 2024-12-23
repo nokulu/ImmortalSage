@@ -1,0 +1,96 @@
+# Plan for Fixes in Sagecraft Mod
+
+## Summary of Changes Made:
+
+1. **KeyBindings.java**:
+   - Implemented key bindings for cultivation actions.
+   - Registered key mappings for the mod.
+
+2. **CultivationScreen.java**:
+   - Created a custom screen to display the cultivation realm name and qi amount.
+   - Used updated rendering methods to display information correctly.
+
+3. **QiData.java**:
+   - Managed the qi amount, including saving and loading functionality.
+   - Implemented methods to get and set the qi amount, ensuring data persistence.
+
+4. **SagecraftMod.java**:
+   - Integrated the QiData instance into the mod.
+   - Registered the QiData instance during server startup to ensure it is accessible.
+
+## Features of the Sagecraft Mod
+
+1. **Cultivation System**:
+   - Players can accumulate a resource called qi through key presses and meditation.
+
+2. **Key Bindings**:
+   - Custom key bindings for cultivation actions, allowing players to interact with the cultivation system easily.
+
+3. **Realm Progression**:
+   - Players can progress through different realms by accumulating enough qi, enhancing their abilities and stats.
+
+4. **Visual Feedback**:
+   - A custom screen displays the cultivation realm name and the amount of qi.
+   - Chat messages inform players of their current status, realm, and qi amount.
+
+5. **Player Interaction**:
+   - The mod interacts with players through events, providing dynamic updates to their status.
+   - Players receive notifications upon joining the game about their current qi amount and path.
+
+6. **Meditation Mechanic**:
+   - Players can meditate to gain qi over time, with visual feedback provided through chat messages.
+
+7. **Breakthrough Mechanism**:
+   - Players can break through to new realms when they have enough qi, gaining additional stats and triggering special effects (e.g., lightning strikes).
+
+8. **Player Path Management**:
+   - The mod tracks the player's current path and provides notifications about it.
+
+9. **Realm Display Management**:
+   - Updates the player's name tag with information about their current realm and path.
+
+10. **Data Management**:
+    - The mod saves and loads the qi amount, ensuring player progress is maintained across sessions.
+
+## New Plan for Fixes
+
+1. **Key Bindings**:
+   - Implement a key binding system to allow users to customize the cultivation/meditation key.
+   - Use the Forge key mapping system to register the key bindings.
+   - Ensure that the key bindings are accessible in the settings menu.
+
+2. **Cultivation Realm Name Display**:
+   - Create a GUI screen to display the current cultivation realm name.
+   - Use the Minecraft GUI system to render the realm name on the screen.
+   - Ensure that the realm name updates dynamically as the player progresses.
+
+3. **Qi Amount Display**:
+   - Implement a method to display the current Qi amount on the screen.
+   - Use the Minecraft GUI system to render the Qi amount in the bottom right corner.
+   - Ensure that the Qi amount updates in real-time as the player gains or loses Qi.
+
+4. **Data Storage**:
+   - Implement data storage for saving and loading Qi and realm information.
+   - Use the Forge data storage system to save player data when they log out or exit the game.
+   - Ensure that the data is loaded correctly when the player logs back in.
+
+## Display Logic Updates
+- If the player is on the Neutral path, the realm name and qi amount will be displayed in white text in the lower right corner of the screen and above the player's head for others to see.
+- If the player is on the Demonic path, the text will be displayed in red.
+- If the player is on the Righteous path, the text will be displayed in golden/yellow.
+
+## References:
+
+- Forge Documentation: https://docs.minecraftforge.net/en/latest/
+- Minecraft Forge Forums: https://forums.minecraftforge.net/
+- Minecraft Forge GitHub: https://github.com/MinecraftForge/MinecraftForge
+- Minecraft Forge Discord: https://discord.gg/UvedJ9m
+- Minecraft Forge Wiki: https://minecraft.gamepedia.com/Minecraft_Wiki
+- Minecraft Forge Modding API: https://github.com/MinecraftForge/MinecraftForge/tree/master/src
+- Minecraft Forge Modding Tutorials: https://mcforge.readthedocs.io/en/latest/
+- Structuring of mod: https://docs.minecraftforge.net/en/latest/gettingstarted/structuring/
+- Key Mappings: https://docs.minecraftforge.net/en/latest/misc/keymappings/
+- GUI Screens: https://docs.minecraftforge.net/en/latest/gui/screens/
+- Menus: https://docs.minecraftforge.net/en/latest/gui/menus/
+- Data Storage: https://docs.minecraftforge.net/en/latest/datastorage/saveddata/
+- Mod Setup: https://docs.minecraftforge.net/en/latest/misc/overview/

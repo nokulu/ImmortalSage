@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.minecraftforge:JarJarMetadata:0.3.26" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.minecraftforge" artifactId="JarJarMetadata" version="0.3.26" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/JarJarMetadata/0.3.26/6db967d6cce100e4abdeed0abfd594b9f42e0d10/JarJarMetadata-0.3.26.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/JarJarMetadata/0.3.26/1d80521d6f65e5ab7117ab137ee58c90496d9ce/JarJarMetadata-0.3.26-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

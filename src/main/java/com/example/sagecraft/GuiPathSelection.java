@@ -1,13 +1,9 @@
 package com.example.sagecraft;
 
-import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
@@ -24,15 +20,25 @@ public class GuiPathSelection extends Screen {
         int buttonWidth = 200;
         int buttonHeight = 20;
 
-        addButton(new Button(width / 2 - buttonWidth / 2, height / 2 - buttonHeight / 2 - 30, buttonWidth, buttonHeight, Component.translatable("Righteous"), button -> pathManager.setPath("Righteous")));
-        addButton(new Button(width / 2 - buttonWidth / 2, height / 2 - buttonHeight / 2, buttonWidth, buttonHeight, Component.translatable("Demonic"), button -> pathManager.setPath("Demonic")));
-        addButton(new Button(width / 2 - buttonWidth / 2, height / 2 - buttonHeight / 2 + 30, buttonWidth, buttonHeight, Component.translatable("Neutral"), button -> pathManager.setPath("Neutral")));
+        createPathButton("Righteous", buttonWidth, buttonHeight, -30);
+        createPathButton("Demonic", buttonWidth, buttonHeight, 0);
+        createPathButton("Neutral", buttonWidth, buttonHeight, 30);
     }
 
-    @SubscribeEvent
-    public static void onCreativeTabBuild(CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.getEntries().add(new ItemStack(Items.DIAMOND));
-        }
+    private void createPathButton(String pathName, int width, int height, int yOffset) {
+        this.addRenderableWidget(Button.builder(Component.translatable(pathName), button -> {
+            // Confirm selection
+            this.confirmPathSelection(pathName);
+        })
+        .bounds(width / 2 - width / 2, height / 2 - height / 2 + yOffset, width, height)
+        .build());
     }
-}
+
+    private void confirmPathSelection(String pathName) {
+        // Logic for confirmation dialog or feedback
+        // For example, display a message or change the path
+        pathManager.setPath(pathName);
+        // Display feedback to the user
+        System.out.println("Path selected: " + pathName);
+    }
+} // Added closing brace for the class

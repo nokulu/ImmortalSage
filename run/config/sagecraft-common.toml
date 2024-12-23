@@ -1,0 +1,3 @@
+#An example configuration value
+#Range: 0 ~ 100
+exampleValue = 10

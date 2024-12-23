@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.minecraftforge:securemodules:2.2.20" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="net.minecraftforge" artifactId="securemodules" version="2.2.20" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/securemodules/2.2.20/7b68d79f2f6c4e199a2989de7402d78270ab1ef/securemodules-2.2.20.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../gradle/gradle-8.12/bin/caches/modules-2/files-2.1/net.minecraftforge/securemodules/2.2.20/49761c40f2ebb6e4e48607e40a6d94ed98e65316/securemodules-2.2.20-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
