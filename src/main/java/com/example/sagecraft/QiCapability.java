@@ -1,5 +1,10 @@
 package com.example.sagecraft;
 
+import com.example.sagecraft.QiManager;
+import com.example.sagecraft.RealmDisplayManager;
+import com.example.sagecraft.QiData;
+
+import net.minecraft.core.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
