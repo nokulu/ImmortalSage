@@ -1,0 +1,250 @@
+-------------------------------------------------
+File: QiCapability.java
+Line: 53
+Explanation: The constructor ResourceLocation(String, String) is not visible.
+Fixes:
+1. Change the access modifier of the constructor in the ResourceLocation class to public if you have control over that class.
+2. Use an alternative constructor or method that is accessible.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 53
+Explanation: ResourceLocation(String,String) has private access in ResourceLocation.
+Fixes:
+1. Change the access modifier of the constructor in the ResourceLocation class to public if you have control over that class.
+2. Use an alternative constructor or method that is accessible.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 64
+Explanation: Capability.IStorage cannot be resolved to a type.
+Fixes:
+1. Ensure that the necessary imports for Capability and IStorage are included.
+2. Verify that the Capability class is available in your project dependencies.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 64
+Explanation: cannot find symbol: class IStorage in Capability.
+Fixes:
+1. Ensure that the necessary imports for Capability and IStorage are included.
+2. Verify that the Capability class is available in your project dependencies.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 65
+Explanation: method does not override or implement a method from a supertype.
+Fixes:
+1. Ensure that the method signature matches the one defined in the superclass or interface.
+2. Check for typos in the method name or parameters.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 70
+Explanation: method does not override or implement a method from a supertype.
+Fixes:
+1. Ensure that the method signature matches the one defined in the superclass or interface.
+2. Check for typos in the method name or parameters.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 77
+Explanation: The type QiCapability.QiStorage must implement the inherited abstract method INBTSerializable<CompoundTag>.serializeNBT(HolderLookup.Provider).
+Fixes:
+1. Implement the serializeNBT method in the QiStorage class as required by the INBTSerializable interface.
+2. Review the interface documentation to ensure all required methods are implemented.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 77
+Explanation: The type QiCapability.QiStorage must implement the inherited abstract method INBTSerializable<CompoundTag>.deserializeNBT(HolderLookup.Provider, CompoundTag).
+Fixes:
+1. Implement the deserializeNBT method in the QiStorage class as required by the INBTSerializable interface.
+2. Review the interface documentation to ensure all required methods are implemented.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 80
+Explanation: method does not override or implement a method from a supertype.
+Fixes:
+1. Ensure that the method signature matches the one defined in the superclass or interface.
+2. Check for typos in the method name or parameters.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 81
+Explanation: The method serializeNBT() of type QiCapability.QiStorage must override or implement a supertype method.
+Fixes:
+1. Ensure that the method signature matches the one defined in the superclass or interface.
+2. Check for typos in the method name or parameters.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 85
+Explanation: method does not override or implement a method from a supertype.
+Fixes:
+1. Ensure that the method signature matches the one defined in the superclass or interface.
+2. Check for typos in the method name or parameters.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 86
+Explanation: The method deserializeNBT(CompoundTag) of type QiCapability.QiStorage must override or implement a supertype method.
+Fixes:
+1. Ensure that the method signature matches the one defined in the superclass or interface.
+2. Check for typos in the method name or parameters.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiCapability.java
+Line: 92
+Explanation: Type mismatch: cannot convert from LazyOptional<QiManager> to LazyOptional<T>.
+Fixes:
+1. Ensure that the types are compatible or use a cast if appropriate.
+2. Review the type definitions to ensure they match the expected types.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiData.java
+Line: 5
+Explanation: The import net.minecraft.world.level.saveddata.HolderLookup cannot be resolved.
+Fixes:
+1. Ensure that the Minecraft library is correctly included in your project dependencies.
+2. Check for typos in the import statement or update the import to the correct package if it has changed.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiData.java
+Line: 20
+Explanation: The type QiData must implement the inherited abstract method SavedData.save(CompoundTag, HolderLookup.Provider).
+Fixes:
+1. Implement the save method in the QiData class as required by the SavedData interface.
+2. Review the interface documentation to ensure all required methods are implemented.
+Seriousness: 4
+
+-------------------------------------------------
+File: QiData.java
+Line: 98
+Explanation: The method save(CompoundTag) of type QiData must override or implement a supertype method.
+Fixes:
+1. Ensure that the method signature matches the one defined in the superclass or interface.
+2. Check for typos in the method name or parameters.
+Seriousness: 4
+
+-------------------------------------------------
+File: RealmDisplayManager.java
+Line: 35
+Explanation: The method getCapability(Class<QiManager>) is undefined for the type ForgeCapabilities.
+Fixes:
+1. Check the documentation for ForgeCapabilities to see if the method has been renamed or removed.
+2. Implement the method if you have control over the ForgeCapabilities class.
+Seriousness: 4
+
+-------------------------------------------------
+File: RealmDisplayManager.java
+Line: 35
+Explanation: cannot find symbol variable CAPABILITY_QI_MANAGER.
+Fixes:
+1. Ensure that the variable CAPABILITY_QI_MANAGER is defined and accessible in the current context.
+2. Check for typos in the variable name or update the reference to the correct variable.
+Seriousness: 4
+
+-------------------------------------------------
+File: RealmDisplayManager.java
+Line: 53
+Explanation: cannot find symbol method getFont().
+Fixes:
+1. Ensure that the method getFont() is defined in the GuiGraphics class.
+2. Check for typos in the method name or ensure that the method is defined in the correct class.
+Seriousness: 4
+
+-------------------------------------------------
+File: RealmDisplayManager.java
+Line: 54
+Explanation: cannot find symbol method getFont().
+Fixes:
+1. Ensure that the method getFont() is defined in the GuiGraphics class.
+2. Check for typos in the method name or ensure that the method is defined in the correct class.
+Seriousness: 4
+
+-------------------------------------------------
+File: SagecraftMod.java
+Line: 8
+Explanation: The import net.minecraftforge.eventbus.api.EventBusSubscriber cannot be resolved.
+Fixes:
+1. Ensure that the Forge library is correctly included in your project dependencies.
+2. Check for typos in the import statement or update the import to the correct package if it has changed.
+Seriousness: 4
+
+-------------------------------------------------
+File: SagecraftMod.java
+Line: 13
+Explanation: The attribute modid is undefined for the annotation type EventBusSubscriber.
+Fixes:
+1. Ensure that the EventBusSubscriber class is correctly defined and accessible.
+2. Check for typos in the annotation or ensure that the attribute is defined in the correct class.
+Seriousness: 4
+
+-------------------------------------------------
+File: SagecraftMod.java
+Line: 21
+Explanation: The method computeIfAbsent(SavedData.Factory<T>, String) in the type DimensionDataStorage is not applicable for the arguments (QiData::load, QiData::new).
+Fixes:
+1. Ensure that the arguments passed to computeIfAbsent match the expected types.
+2. Review the method signature for computeIfAbsent to ensure correct usage.
+Seriousness: 4
+
+-------------------------------------------------
+File: SagecraftMod.java
+Line: 21
+Explanation: The target type of this expression must be a functional interface.
+Fixes:
+1. Ensure that the expression matches a valid functional interface.
+2. Review the method signature to ensure correct usage.
+Seriousness: 4
+
+-------------------------------------------------
+File: PlayerStatsTest.java
+Line: 31
+Explanation: The method getPath() is undefined for the type PlayerPathManager.
+Fixes:
+1. Implement the getPath method in the PlayerPathManager class.
+2. Check for typos in the method name or ensure that the method is defined in the correct class.
+Seriousness: 4
+
+-------------------------------------------------
+File: CultivationScreen.java
+Line: 44
+Explanation: Missing non-null annotation: inherited method from Screen specifies this parameter as @Nonnull.
+Fixes:
+1. Add the @Nonnull annotation to the method parameter.
+2. Review the method signature to ensure it matches the expected non-null requirements.
+Seriousness: 2
+
+-------------------------------------------------
+File: GuiPathSelection.java
+Line: 6
+Explanation: The import com.example.sagecraft.PlayerPathManager is never used.
+Fixes:
+1. Remove the unused import statement.
+2. Review the code to see if the PlayerPathManager is needed elsewhere.
+Seriousness: 2
+
+-------------------------------------------------
+File: QiManager.java
+Line: 32
+Explanation: The value of the field QiManager.isMeditating is not used.
+Fixes:
+1. Use the isMeditating field in the code where appropriate.
+Seriousness: 2

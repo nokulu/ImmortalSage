@@ -71,6 +71,8 @@ publishing {
 dependencies {
     minecraft ('net.minecraftforge:forge:1.21.1-52.0.28') { version { strictly '1.21.1-52.0.28' } }
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1' // Add JUnit dependency
+
 }
 
 tasks.named('processResources', ProcessResources).configure {
