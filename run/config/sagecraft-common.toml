@@ -1,3 +1,14 @@
-#An example configuration value
-#Range: 0 ~ 100
-exampleValue = 10
+#Cultivation System Settings
+[cultivation]
+	#Base Qi gained per tick while cultivating
+	#Range: 0 ~ 100
+	baseQiGain = 1
+	#Multiplier for Qi gain while meditating
+	#Range: 1.0 ~ 10.0
+	meditationMultiplier = 2.0
+	#Base Qi required to advance to next realm
+	#Range: 100 ~ 1000000
+	realmAdvancementCost = 1000
+	#Multiplier for path-specific cultivation bonuses
+	#Range: 1.0 ~ 5.0
+	pathBonusMultiplier = 1.5

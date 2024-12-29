@@ -1,103 +1,198 @@
 package com.example.sagecraft;
 
-import com.example.sagecraft.QiManager;
-import com.example.sagecraft.RealmDisplayManager;
-import com.example.sagecraft.QiData;
-
-import net.minecraft.core.*;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * Documentation:
- * This class manages the Qi capabilities for players in the Sagecraft mod.
- * It allows players to have a QiManager instance that tracks their Qi levels
- * and provides methods for serialization and deserialization of Qi data.
+ * Manages Qi capabilities for players in Sagecraft mod.
+ * Provides capability registration, storage implementation, and event handling.
  * 
- * Key functionalities:
- * - Registers the QiManager capability for players.
- * - Attaches the QiManager capability to players when they are created.
- * - Handles the serialization and deserialization of QiManager data.
- * - Updates Qi levels for players who are meditating during server ticks.
- * 
- * Events:
- * - AttachCapabilitiesEvent: Attaches the QiManager capability to players.
- * - FMLCommonSetupEvent: Registers the QiManager capability with the capability manager.
- * - ServerTickEvent: Updates Qi levels for players who are meditating.
- * 
- * References:
- * - Capability System: https://forge.gemwire.uk/wiki/Capabilities
- * - How to fix capability from 1.20.x -> 1.21.1: https://forums.minecraftforge.net/topic/149807-forge-121-5101-configjava-uses-resourcelocation-but-it-is-set-to-private/
- * - idk: https://forge.gemwire.uk/wiki/Capabilities
+ * Features:
+ * - Qi level tracking and modification
+ * - Meditation state management
+ * - Realm level progression
+ * - Path selection and tracking
+ * - Data persistence through NBT
+ *
+ * @version 1.0
+ * @since 1.21.1
  */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = SagecraftMod.MOD_ID)
 public class QiCapability {
-    public static final Capability<QiManager> CAPABILITY_QI_MANAGER = CapabilityManager.get(new CapabilityToken<QiManager>() {});
+    public static final Capability<IQiStorage> CAPABILITY_QI_MANAGER = CapabilityManager.get(new CapabilityToken<>(){});
 
+    public static void register(IEventBus modEventBus) {
+        modEventBus.addListener((RegisterCapabilitiesEvent event) -> {
+            event.register(IQiStorage.class);
+        });
+    }
+
+    /**
+     * Attaches QiStorage capability to players when they are created
+     * @param event The capability attachment event
+     */
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<Player> event) {
         if (event.getObject() instanceof Player) {
-            event.addCapability(ResourceLocation.fromNamespaceAndPath("sagecraft", "qi_manager"), new QiStorage());
+            QiStorageImpl storage = new QiStorageImpl();
+            event.addCapability(
+                ResourceLocation.fromNamespaceAndPath("sagecraft", "qi_manager"),
+                storage
+            );
+            event.addListener(storage::invalidateCapability);
         }
     }
 
-    public static class QiStorage implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-        private final QiManager instance = new QiManager();
-        private final LazyOptional<QiManager> lazyOptional = LazyOptional.of(() -> instance);
-
-        @NotNull
-        @Override
-        public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-            return CAPABILITY_QI_MANAGER.orEmpty(cap, lazyOptional);
-        }
-
-        @Override
-        public CompoundTag serializeNBT() {
-            CompoundTag compound = new CompoundTag();
-            compound.putInt("QiAmount", instance.getQiAmount());
-            compound.putString("CurrentPath", instance.getCurrentPath());
-            compound.putInt("RealmLevel", instance.getRealmLevel());
-            return compound;
-        }
-
-        @Override
-        public void deserializeNBT(CompoundTag nbt) {
-            if (nbt.contains("QiAmount")) {
-                instance.setQiAmount(nbt.getInt("QiAmount"));
-            }
-            if (nbt.contains("CurrentPath")) {
-                instance.setCurrentPath(nbt.getString("CurrentPath"));
-            }
-            if (nbt.contains("RealmLevel")) {
-                instance.setRealmLevel(nbt.getInt("RealmLevel"));
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
+    /**
+     * Implementation of IQiStorage that provides Qi management functionality
+     * Handles storage, serialization, and capability integration
+     */
+    private static class QiStorageImpl implements IQiStorage, ICapabilitySerializable<CompoundTag> {
+ 
+        /** Lazy optional holder for capability instance */
+        private final LazyOptional<IQiStorage> holder = LazyOptional.of(() -> this);
         
-        for (Player player : event.getServer().getPlayerList().getPlayers()) {
-            QiManager qiManager = player.getCapability(CAPABILITY_QI_MANAGER).orElse(null);
-            if (qiManager != null && qiManager.isMeditating()) {
-                qiManager.gainQi(1); // Gain 1 Qi every tick while meditating
+        /** Current Qi amount */
+        private int qi = 0;
+        
+
+        /** Current meditation state */
+        private boolean isMeditating = false;
+        
+        /** Current realm progression level */
+        private int realmLevel = 0;
+        
+        /** Current cultivation path */
+        private String currentPath = "Neutral";
+
+
+        /** Meditation tick counter */
+    private int meditationTicks = 0;
+    
+    /** Ticks per Qi gain during meditation */
+    private static final int MEDITATION_TICK_RATE = 20;
+    
+    @Override
+    public void tickCultivation() {
+        if (isMeditating) {
+            meditationTicks++;
+            if (meditationTicks >= MEDITATION_TICK_RATE) {
+                int qiGain = calculateQiGain();
+                qi += qiGain;
+                meditationTicks = 0;
             }
+        }
+    }
+    
+    private int calculateQiGain() {
+        double baseGain = Config.baseQiGain.get();
+        double pathMultiplier = switch (currentPath) {
+            case "Righteous" -> 1.0;
+            case "Demonic" -> 5.0;
+            case "Beast" -> 3.0;
+            default -> 1.0;
+        };
+        return (int)(baseGain * pathMultiplier * Config.meditationMultiplier.get());
+    }
+        @Override
+        public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+            return CAPABILITY_QI_MANAGER.orEmpty(cap, holder);
+        }
+
+        /**
+         * Serializes capability data to NBT
+         * @return CompoundTag containing all capability data
+         */
+        @Override
+        public CompoundTag serialize() {
+            CompoundTag tag = new CompoundTag();
+            tag.putInt("qi", qi);
+            tag.putBoolean("meditating", isMeditating);
+            tag.putInt("realmLevel", realmLevel);
+            tag.putString("path", currentPath);
+            return tag;
+        }
+
+        /**
+         * Deserializes capability data from NBT
+         * @param tag CompoundTag containing capability data
+         */
+        @Override
+        public void deserialize(CompoundTag tag) {
+            qi = tag.getInt("qi");
+            isMeditating = tag.getBoolean("meditating");
+            realmLevel = tag.getInt("realmLevel");
+            currentPath = tag.getString("path");
+        }
+
+        /**
+         * Serializes capability data with provider
+         * @param provider The HolderLookup.Provider instance
+         * @return CompoundTag containing capability data
+         */
+        @Override
+        public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+            return serialize();
+        }
+
+        /**
+         * Deserializes capability data with provider
+         * @param provider The HolderLookup.Provider instance
+         * @param tag CompoundTag containing capability data
+         */
+        @Override
+        public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+            deserialize(tag);
+        }
+
+        /**
+         * Increases player's Qi amount
+         * @param amount Amount of Qi to add
+         */
+        @Override
+        public void gainQi(int amount) {
+            this.qi += amount;
+        }
+
+        // IQiStorage implementation
+        @Override
+        public int getQiAmount() { return qi; }
+        
+        @Override
+        public void setQiAmount(int amount) { this.qi = amount; }
+        
+        @Override
+        public boolean isMeditating() { return isMeditating; }
+        
+        @Override
+        public void setMeditating(boolean meditating) { this.isMeditating = meditating; }
+        
+        @Override
+        public int getRealmLevel() { return realmLevel; }
+        
+        @Override
+        public void setRealmLevel(int level) { this.realmLevel = level; }
+        
+        @Override
+        public String getCurrentPath() { return currentPath; }
+        
+        @Override
+        public void setCurrentPath(String path) { this.currentPath = path; }
+
+        /**
+         * Invalidates the capability holder
+         */
+        public void invalidateCapability() {
+            holder.invalidate();
         }
     }
 }

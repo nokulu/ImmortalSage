@@ -1,67 +1,59 @@
 package com.example.sagecraft;
 
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import javax.annotation.Nonnull;
 
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-
-/**
- * Documentation:
- * This class creates a custom screen to display the cultivation realm name and Qi amount.
- * It extends the Screen class from Minecraft's GUI framework.
- * 
- * Key functionalities:
- * - Displays the name of the cultivation realm.
- * - Displays the current amount of Qi.
- * 
- * References:
- * - GUI Screens: https://docs.minecraftforge.net/en/latest/gui/screens/
- */
 public class CultivationScreen extends Screen {
-    private final String realmName; // The name of the cultivation realm
-    private final int qiAmount; // The amount of Qi
+    private static final ResourceLocation TEXTURE = 
+        ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/book");
+    
+    private static final int GUI_WIDTH = 176;
+    private static final int GUI_HEIGHT = 166;
 
-    /**
-     * Constructs a new CultivationScreen.
-     *
-     * @param realmName The name of the cultivation realm to display.
-     * @param qiAmount The amount of Qi to display.
-     */
-    public CultivationScreen(String realmName, int qiAmount) {
-        super(Component.translatable("screen.sagecraft.cultivation"));
-        this.realmName = realmName;
-        this.qiAmount = qiAmount;
+    private final String realm;
+    private final int qiAmount;
+    private final String currentPath;
+    private final boolean isMeditating;
+
+    public CultivationScreen(String realm, int qi, String path, boolean meditating) {
+        super(Component.literal("Cultivation"));
+        this.realm = realm;
+        this.qiAmount = qi;
+        this.currentPath = path;
+        this.isMeditating = meditating;
     }
 
-    /**
-     * Renders the screen.
-     *
-     * @param guiGraphics The graphics context for rendering.
-     * @param mouseX The X coordinate of the mouse.
-     * @param mouseY The Y coordinate of the mouse.
-     * @param partialTicks The partial ticks for rendering.
-     */
     @Override
-public void render(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(guiGraphics);
-        guiGraphics.drawString(this.font, "Cultivation Realm: " + realmName, this.width / 2 - this.font.width("Cultivation Realm: " + realmName) / 2, this.height / 2 - 10, 0xFFFFFF);
-        guiGraphics.drawString(this.font, "Qi Amount: " + qiAmount, this.width / 2 - this.font.width("Qi Amount: " + qiAmount) / 2, this.height / 2 + 10, 0xFFFFFF);
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+    protected void init() {
+        int leftPos = (width - GUI_WIDTH) / 2;
+        int topPos = (height - GUI_HEIGHT) / 2;
     }
 
-    /**
-     * Renders the background for the screen.
-     *
-     * @param guiGraphics The graphics context for rendering.
-     */
-    private void renderBackground(GuiGraphics guiGraphics) {
-        // Background rendering logic can be added here
+    @Override
+    public void render(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        renderBackground(graphics, mouseX, mouseY, partialTick);
+        
+        int leftPos = (width - GUI_WIDTH) / 2;
+        int topPos = (height - GUI_HEIGHT) / 2;
+        
+        graphics.blit(TEXTURE, leftPos, topPos, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        graphics.drawCenteredString(font, "Cultivation", 
+            leftPos + GUI_WIDTH / 2, topPos + 15, 0xFFFFFF);
+
+        // Draw cultivation info
+        graphics.drawString(font, "Realm: " + realm, leftPos + 10, topPos + 35, 0xFFFFFF);
+        graphics.drawString(font, "Qi: " + qiAmount, leftPos + 10, topPos + 45, 0xFFFFFF);
+        graphics.drawString(font, "Path: " + currentPath, leftPos + 10, topPos + 55, 0xFFFFFF);
+        graphics.drawString(font, "Meditating: " + isMeditating, leftPos + 10, topPos + 65, 0xFFFFFF);
+        
+        super.render(graphics, mouseX, mouseY, partialTick);
+    }
+    
+    @Override
+    public boolean isPauseScreen() {
+        return false;
     }
 }
-
-/*
- * End of Documentation:
- * This file contains the CultivationScreen class, which is responsible for displaying
- * the cultivation realm and Qi amount in the Sagecraft mod.
- */

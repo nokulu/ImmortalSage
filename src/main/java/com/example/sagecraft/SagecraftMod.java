@@ -1,96 +1,91 @@
 package com.example.sagecraft;
 
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.*; // THE USED ONE IS CORRECT THE COMMENTED ONE DOES! NOT! EXIST! ->  net.minecraftforge.eventbus.api.EventBusSubscriber;
-import net.minecraft.world.level.Level; // Import for Level
-import net.minecraft.nbt.CompoundTag; // Import for CompoundTag
-//the following ones are idk
-import net.jodah.typetools.TypeResolver;
+// Removed unused import
+// import net.minecraftforge.client.gui.GuiOverlayManager; // Import for GuiOverlayManager
+import net.minecraft.world.entity.player.Player; // Import for Player
+import net.minecraft.client.Minecraft; // Import for Minecraft
+import org.slf4j.Logger;
+import net.minecraftforge.event.entity.player.PlayerEvent; // Import for PlayerEvent
+import org.slf4j.LoggerFactory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.objectweb.asm.Type;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import net.minecraftforge.eventbus.*;
-import net.minecraftforge.*;
-
-import net.minecraftforge.fml.event.*;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-
-
+/**
+ * Main mod class for Sagecraft.
+ * Handles initialization and event registration.
+ */
 @Mod(SagecraftMod.MOD_ID)
-@EventBusSubscriber(modid = SagecraftMod.MOD_ID, bus = Bus.MOD) // Ensure this is correctly defined
 public class SagecraftMod {
     public static final String MOD_ID = "sagecraft";
-    private static QiData qiData = new QiData(); // Initialize qiData
+    private static final Logger LOGGER = LoggerFactory.getLogger(SagecraftMod.class);
 
     public SagecraftMod() {
-        // Register event listeners
-        qiData = new QiData(); // Ensure qiData is initialized properly
+        LOGGER.info("Initializing Sagecraft Mod");
+        
+        // Get mod event bus
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        
+        // Register mod setup events
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
+        
+        // Register config
+        Config.register();
+
+        // Register capabilities with eventbus
+        QiCapability.register(modEventBus);
+        
+        // Register network packets
+        PacketHandler.register();
+        
+        // Register key bindings
+        KeyBindings.register(modEventBus);
+        
+        // Register forge event bus
+        MinecraftForge.EVENT_BUS.register(this);
+        
+        modEventBus.addListener(this::onConfigReload);
+   
+        LOGGER.info("Sagecraft Mod Initialized and ready for usage!");
+        LOGGER.info("Happy Cultivation!");
     }
 
-    @SubscribeEvent
-    public static void onServerStarting(ServerStartingEvent event) {
-        // Register the QiData instance
-        qiData = event.getServer().getLevel(Level.OVERWORLD).getDataStorage().computeIfAbsent(QiData.FACTORY, "qi_data"); // Ensure this line is correct
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        LOGGER.info("Common Setup");
+        event.enqueueWork(() -> {
+            // Setup work that needs to be thread-safe
+        });
     }
 
-    /**
-     * This method is called during the common setup phase of the mod.
-     * It is used to register packet handlers and perform any necessary
-     * initialization that is common to both client and server.
-     *
-     * @param event The FMLCommonSetupEvent that contains information about the setup phase.
-     */
-    @SubscribeEvent
-    public static void onCommonSetup(FMLCommonSetupEvent event) {
-        // Common setup logic
-        PacketHandler.sendToServer(new Object()); // Register the packet handler with a dummy object
+    private void clientSetup(final FMLClientSetupEvent event) {
+        LOGGER.info("Client Setup");
+        MinecraftForge.EVENT_BUS.register(HudOverlay.class);
+        
+        // Register GUI classes
+        event.enqueueWork(() -> {
+            // Obtain the current player instance
+            Player currentPlayer = Minecraft.getInstance().player; // This is a common way to get the player instance
+            PlayerPathManager pathManager = null; // Declare pathManager here
+            if (currentPlayer != null) {
+                pathManager = new PlayerPathManager(currentPlayer); // Instantiate pathManager
+                ScreenManager.register(GuiPathSelection.class, new GuiPathSelection(pathManager));
+            } else {
+                LOGGER.warn("Current player is null, cannot initialize PlayerPathManager.");
+            }
+            ScreenManager.register(CultivationScreen.class, new CultivationScreen("defaultRealm", 0, "defaultPath", false));
+        });
     }
 
-    /**
-     * This method is called during the client setup phase of the mod.
-     * It is used to perform any client-specific initialization.
-     *
-     * @param event The FMLClientSetupEvent that contains information about the client setup phase.
-     */
-    @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        // Client setup logic
-    }
-
-    /**
-     * Retrieves the current QiData instance.
-     *
-     * @return The QiData instance containing player-specific Qi information.
-     */
-    public static QiData getQiData() {
-        return qiData;
+    private void onConfigReload(final ModConfigEvent.Reloading event) {
+        if (event.getConfig().getType() == ModConfig.Type.COMMON) {
+            LOGGER.info("Reloading Sagecraft configuration");
+            // Future: Sync to clients
+        }
     }
 }
-
-/*
- * Documentation:
- * This class is the main entry point for the Sagecraft mod.
- * It handles the mod's initialization and event registration.
- * 
- * Key functionalities:
- * - Registers event listeners for common setup, client setup, and server starting events.
- * - Manages the QiData instance, which is essential for the mod's functionality.
- * 
- * References:
- * - Mod Setup: https://docs.minecraftforge.net/en/latest/misc/overview/
- */

@@ -1,44 +1,106 @@
 package com.example.sagecraft;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.ChatType; // Import for Component
-import net.minecraft.network.chat.OutgoingChatMessage; // Import for OutgoingChatMessage
-import net.minecraft.network.chat.PlayerChatMessage; // Import for ChatType
-import net.minecraft.world.entity.player.Player; // Existing import
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod; // Import for Minecraft instance
+import net.minecraftforge.common.MinecraftForge;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.example.sagecraft.network.PathUpdatePacket;
+import javax.annotation.Nullable;
 
-@Mod.EventBusSubscriber
 public class PlayerPathManager {
-    private String currentPath; // Variable to store the current path
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerPathManager.class);
+    private static final String[] VALID_PATHS = {"Neutral", "Righteous", "Demonic", "Beast"};
+    
+    private final Player player;
+    private String currentPath;
+    private double pathBonus;
+    private boolean isRegistered;
 
-    public PlayerPathManager() {
-        // Initialize any necessary variables here
+    public PlayerPathManager(Player player) {
+        this.player = player;
+        this.currentPath = "Neutral";
+        this.pathBonus = 1.0;
+        this.isRegistered = false;
+        registerEvents();
     }
 
-    public void setPath(String path) {
-        this.currentPath = path; // Set the current path
-        // Additional logic can be added here if needed
+    private void registerEvents() {
+        if (!isRegistered) {
+            MinecraftForge.EVENT_BUS.register(this);
+            isRegistered = true;
+            LOGGER.debug("Registered events for player: {}", player.getName().getString());
+        }
     }
 
-    public String getCurrentPath() {
-        return currentPath; // Return the current path
+    public boolean setPath(String path) {
+        if (isValidPath(path) && !currentPath.equals(path)) {
+            String oldPath = currentPath;
+            currentPath = path;
+            updatePathBonus();
+            syncPath();
+            LOGGER.info("Player {} changed path from {} to {}", 
+                player.getName().getString(), oldPath, path);
+            return true;
+        }
+        return false;
     }
 
-    public void onKeyPress(Player player) {
-        // Logic for key press related to path management
+    private boolean isValidPath(String path) {
+        for (String validPath : VALID_PATHS) {
+            if (validPath.equals(path)) return true;
+        }
+        LOGGER.warn("Invalid path attempted: {}", path);
+        return false;
     }
 
-    public void onKeyRelease() {
-        // Logic for key release related to path management
+    private void updatePathBonus() {
+        pathBonus = switch (currentPath) {
+            case "Righteous" -> Config.pathBonusMultiplier.get() * 1.0;
+            case "Demonic" -> Config.pathBonusMultiplier.get() * 5.0;
+            case "Beast" -> Config.pathBonusMultiplier.get() * 3.0;
+            default -> 1.0;
+        };
+    }
+
+    private void syncPath() {
+        if (player instanceof ServerPlayer serverPlayer && serverPlayer.server != null) {
+            PathUpdatePacket packet = new PathUpdatePacket(currentPath);
+            PacketHandler.sendToAll(packet, serverPlayer.server.getPlayerList());
+            LOGGER.debug("Synced path data for player: {}", player.getName().getString());
+        }
     }
 
     @SubscribeEvent
     public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        Player player = Minecraft.getInstance().player; // Retrieve the player instance from the event
-        if (player != null) {
-            player.createCommandSourceStack().sendChatMessage(new OutgoingChatMessage.Player(PlayerChatMessage.unsigned(player.getUUID(), "You are on the path: " + currentPath)), false, ChatType.bind(ChatType.CHAT, player));
+        if (event.getEntity() instanceof ServerPlayer serverPlayer && event.getEntity() == player) {
+            serverPlayer.sendSystemMessage(
+                Component.literal("Your cultivation path: " + currentPath)
+            );
+            PacketHandler.sendToPlayer(
+                new PathUpdatePacket(currentPath), 
+                serverPlayer
+            );
+            LOGGER.debug("Sent path data to joining player: {}", serverPlayer.getName().getString());
         }
+    }
+
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() == player) {
+            syncPath();
+        }
+    }
+
+    public String getCurrentPath() {
+        return currentPath;
+    }
+
+    public double getPathBonus() {
+        return pathBonus;
     }
 }

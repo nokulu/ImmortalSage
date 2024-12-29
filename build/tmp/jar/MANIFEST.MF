@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Specification-Title: sagecraft
+Specification-Vendor: Wulong
+Specification-Version: 1
+Implementation-Title: Sagecraft
+Implementation-Version: 0.0.3
+Implementation-Vendor: Wulong
+

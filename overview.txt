@@ -1,0 +1,123 @@
+File name: QiCapability.java
+Class name(s): QiCapability
+Methods:
+- register(IEventBus modEventBus)
+- onAttachCapabilities(AttachCapabilitiesEvent<Player> event)
+- getCapability(Capability<T> cap, Direction side)
+- serialize()
+- deserialize(CompoundTag tag)
+- gainQi(int amount)
+- tickCultivation()
+Explanation on file purpose, and what its for:
+The QiCapability class manages the Qi capabilities for players in the Sagecraft mod. It provides functionality for tracking and modifying Qi levels, managing meditation states, handling realm level progression, and allowing path selection. The class also ensures data persistence through NBT serialization, enabling the mod to save and load player states effectively.
+---------------------------
+File name: QiStorageImpl.java
+Class name(s): QiStorageImpl
+Methods:
+- getQiAmount()
+- setQiAmount(int amount)
+- getCurrentPath()
+- setCurrentPath(String path)
+- getRealmLevel()
+- setRealmLevel(int level)
+- isMeditating()
+- setMeditating(boolean meditating)
+- tickCultivation()
+- gainQi(int amount)
+- serialize()
+- deserialize(CompoundTag nbt)
+Explanation on file purpose, and what its for:
+The QiStorageImpl class implements the IQiStorage interface and provides the actual storage and management of Qi-related data for players. It tracks the player's Qi amount, current path, realm level, and meditation state. The class also handles the logic for gaining Qi during meditation and checks for realm advancements based on the player's Qi amount. It supports NBT serialization for saving and loading player data.
+---------------------------
+File name: QiManager.java
+Class name(s): QiManager
+Methods:
+- gainQi(int amount)
+- checkBreakthrough()
+- getQi()
+- setQi(int amount)
+- getCurrentRealmName()
+- getRealmLevel()
+- setRealmLevel(int level)
+- getRealmName(int level)
+- isMeditating()
+- setMeditating(boolean meditating)
+- getNextBreakthroughRequirement()
+- getBreakthroughProgress()
+Explanation on file purpose, and what its for:
+The QiManager class manages a player's Qi cultivation and realm progression within the Sagecraft mod. It tracks the player's Qi amount, current realm level, and meditation state. The class handles the logic for gaining Qi, checking for realm breakthroughs, and calculating the progress towards the next realm. It provides methods to interact with the player's Qi and realm status, facilitating the gameplay experience related to cultivation.
+---------------------------
+File name: PlayerPathManager.java
+Class name(s): PlayerPathManager
+Methods:
+- setPath(String path)
+- isValidPath(String path)
+- updatePathBonus()
+- syncPath()
+- onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event)
+- onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event)
+- getCurrentPath()
+- getPathBonus()
+Explanation on file purpose, and what its for:
+The PlayerPathManager class manages the cultivation path for players in the Sagecraft mod. It allows players to set and validate their paths (Neutral, Righteous, Demonic, Beast), updates the associated bonuses, and synchronizes this information with the server. The class also handles events related to player login and respawn, ensuring that players receive updates about their current path.
+---------------------------
+File name: RealmDisplayManager.java
+Class name(s): RealmDisplayManager
+Methods:
+- updatePlayerNameTag(Player player, String path, String realm)
+- renderGui(Player player, GuiGraphics guiGraphics, String path, String realm)
+- determineColorBasedOnPath(String pathType)
+Explanation on file purpose, and what its for:
+The RealmDisplayManager class handles the visual representation of cultivation realms and Qi amounts in the Sagecraft mod. It updates player nametags to reflect their current realm and renders GUI elements that display the player's Qi amount and realm level. The class also includes dynamic color coding based on the player's cultivation path, enhancing the visual feedback for players regarding their progress and status.
+---------------------------
+File name: HudOverlay.java
+Class name(s): HudOverlay
+Methods:
+- onRenderGui(ScreenEvent.Render.Post event)
+Explanation on file purpose, and what its for:
+The HudOverlay class manages the rendering of the HUD (Heads-Up Display) overlay in the Sagecraft mod. It displays the player's current realm and Qi amount on the screen, with dynamic color coding based on the player's cultivation path. The class also listens for rendering events and updates the GUI accordingly, providing real-time feedback to players about their status in the game.
+---------------------------
+**Gameplay Mechanics:**
+- Qi cultivation and progression system
+- Meditation and realm breakthroughs
+- Cultivation paths (Neutral, Righteous, Demonic, Beast)
+- Realm levels and bonuses
+- Dynamic color coding for visual feedback
+- Player data persistence and serialization
+- GUI elements for displaying Qi and realm information
+- Real-time updates on player status
+- Event handling for player interactions
+- Path selection and bonuses
+- Realm display in nametags and GUI
+- HUD overlay for Qi and realm information
+- Progress tracking and breakthrough requirements
+- Realm advancement logic and calculations
+- Qi gain during meditation
+- Path bonus updates and management
+- Realm level progression and updates
+
+**The gameplay loop**
+- Players join the game, and begin as Mortal Realm level cultivator, with a neutral path.
+- They can choose their path, with by default 'P' key. The choices are Neutral, Righteous, Demonic, Beast.
+- The bonuses of paths are different, and players can switch between them.
+- Players can meditate to gain Qi, which is the energy used for cultivation.
+- When at mortal realm, they gain qi of 1000, they can breakthrough to the next realm.
+- The next realm has breakthrough requirement of 4000 Qi.
+- The requirements quadruple as the player progresses through realms.
+- The player can see their realm and Qi amount in the HUD overlay, in the lower right corner of the screen.
+- The player's nametag also displays their realm and path, with color coding based on the path.
+- The only actual gui is for path selection, which is displayed when the player presses 'P' key.
+
+For future:
+- More paths, with unique bonuses and requirements.
+- More specified realm benefits, such as ability to fly.
+- More visual feedback, such as particle effects.
+- More interactive gameplay elements, such as realm-specific mobs.
+- More customization options for players, such as realm-specific gear.
+- More progression systems.
+- formations, and cultivation techniques.
+- alchemy, and crafting systems.
+- more interactive GUI elements.
+- Skills, and abilities.
+- world generation, and exploration.
+- multiplayer features, and cooperative gameplay.

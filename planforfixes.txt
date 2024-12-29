@@ -1,130 +1,101 @@
-# Plan for Fixes in Sagecraft Mod
+# Plan to Fix QiCapability.java
 
-## Summary of Changes Made:
+## Current Issues
+1. QiStorage class not implementing required abstract methods
+2. Method signature mismatches in serializeNBT and deserializeNBT
+3. Missing getQiAmount method in QiManager
+4. Redundant and unused imports
+5. ResourceLocation constructor visibility issue
 
-1. **KeyBindings.java**:
-   - Implemented key bindings for cultivation actions.
-   - Registered key mappings for the mod.
+## Detailed Fix Plan
 
-2. **CultivationScreen.java**:
-   - Created a custom screen to display the cultivation realm name and qi amount.
-   - Used updated rendering methods to display information correctly.
+### 1. Fix QiStorage Implementation
+- Update the QiStorage class to implement the new INBTSerializable interface methods:
+```java
+serializeNBT(HolderLookup.Provider provider)
+deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt)
+```
+- Consider using a structured data format or a Data Transfer Object (DTO) to encapsulate related values for easier serialization/deserialization.
+- Ensure proper error handling for null providers and unexpected data formats.
+- Review existing serialization logic for improvements.
 
-3. **QiData.java**:
-   - Managed the qi amount, including saving and loading functionality.
-   - Implemented methods to get and set the qi amount, ensuring data persistence.
+### 2. Fix ResourceLocation Creation
+- Keep the following line as is:
+```java
+ResourceLocation.fromNamespaceAndPath("sagecraft", "qi_manager")
+```
 
-4. **SagecraftMod.java**:
-   - Integrated the QiData instance into the mod.
-   - Registered the QiData instance during server startup to ensure it is accessible.
+### 3. QiManager Updates
+- Add required methods to QiManager class:
+  * getQiAmount()
+  * getCurrentPath()
+  * getRealmLevel()
+  * setQiAmount()
+  * setCurrentPath()
+  * setRealmLevel()
+  * isMeditating()
+  * gainQi()
 
-## Features of the Sagecraft Mod
+### 4. Clean Up Imports
+Remove unused imports:
+- com.example.sagecraft.QiManager
+- com.example.sagecraft.RealmDisplayManager
+- com.example.sagecraft.QiData
+- net.minecraft.core.*
+- net.minecraft.core.HolderLookup.Provider (keep this one)
 
-1. **Cultivation System**:
-   - Players can accumulate a resource called qi through key presses and meditation.
+### 5. Testing Plan
+1. Test QiStorage serialization/deserialization
+   - Create a new QiStorage instance
+   - Set various values
+   - Serialize to NBT
+   - Deserialize back
+   - Verify values match
 
-2. **Key Bindings**:
-   - Custom key bindings for cultivation actions, allowing players to interact with the cultivation system easily.
+2. Test Capability Attachment
+   - Create a new player
+   - Verify QiManager capability is attached
+   - Verify can get/set values
 
-3. **Realm Progression**:
-   - Players can progress through different realms by accumulating enough qi, enhancing their abilities and stats.
+3. Test Meditation System
+   - Start meditation
+   - Verify Qi increases over time
+   - Stop meditation
+   - Verify Qi stops increasing
 
-4. **Visual Feedback**:
-   - A custom screen displays the cultivation realm name and the amount of qi.
-   - Chat messages inform players of their current status, realm, and qi amount.
+## Dependencies to Update
+1. QiManager.java
+   - Add missing methods
+   - Ensure proper implementation of Qi management
 
-5. **Player Interaction**:
-   - The mod interacts with players through events, providing dynamic updates to their status.
-   - Players receive notifications upon joining the game about their current qi amount and path.
+2. RealmDisplayManager.java
+   - Update to work with new QiManager methods
+   - Ensure proper realm level display
 
-6. **Meditation Mechanic**:
-   - Players can meditate to gain qi over time, with visual feedback provided through chat messages.
+## Implementation Order
+1. Clean up imports first
+2. Fix ResourceLocation creation
+3. Update QiStorage class with new interface methods
+4. Implement missing QiManager methods
+5. Test each component
+6. Update dependent classes
 
-7. **Breakthrough Mechanism**:
-   - Players can break through to new realms when they have enough qi, gaining additional stats and triggering special effects (e.g., lightning strikes).
+## Notes
+- All changes should maintain backward compatibility where possible
+- Document any breaking changes
+- Add proper error handling for edge cases
+- Add JavaDoc comments for new methods
+- Consider adding debug logging for troubleshooting
 
-8. **Player Path Management**:
-   - The mod tracks the player's current path and provides notifications about it.
+## Potential Risks
+- Breaking changes in capability system
+- Data loss during serialization/deserialization
+- Performance impact of new provider parameter
+- Compatibility issues with other mods
 
-9. **Realm Display Management**:
-   - Updates the player's name tag with information about their current realm and path.
-
-10. **Data Management**:
-    - The mod saves and loads the qi amount, ensuring player progress is maintained across sessions.
-
-## New Plan for Fixes
-
-1. **Key Bindings**:
-   - Implement a key binding system to allow users to customize the cultivation/meditation key.
-   - Use the Forge key mapping system to register the key bindings.
-   - Ensure that the key bindings are accessible in the settings menu.
-
-2. **Cultivation Realm Name Display**:
-   - Create a GUI screen to display the current cultivation realm name.
-   - Use the Minecraft GUI system to render the realm name on the screen.
-   - Ensure that the realm name updates dynamically as the player progresses.
-
-3. **Qi Amount Display**:
-   - Implement a method to display the current Qi amount on the screen.
-   - Use the Minecraft GUI system to render the Qi amount in the bottom right corner.
-   - Ensure that the Qi amount updates in real-time as the player gains or loses Qi.
-
-4. **Data Storage**:
-   - Implement data storage for saving and loading Qi and realm information.
-   - Use the Forge data storage system to save player data when they log out or exit the game.
-   - Ensure that the data is loaded correctly when the player logs back in.
-
-## Display Logic Updates
-- If the player is on the Neutral path, the realm name and qi amount will be displayed in white text in the lower right corner of the screen and above the player's head for others to see.
-- If the player is on the Demonic path, the text will be displayed in red.
-- If the player is on the Righteous path, the text will be displayed in golden/yellow.
-
-# Sagecraft Mod Analysis Report
-
-## Overview
-The Sagecraft mod introduces a Qi management system that allows players to progress through various realms by accumulating Qi. The mod enhances gameplay by providing mechanics for meditation, realm progression, and player stats enhancement.
-
-## Key Classes and Their Functionalities
-
-1. **QiManagerUpdated**
-   - Manages the player's Qi and realm progression.
-   - Allows players to gain Qi through key presses and meditation.
-   - Handles breakthroughs to higher realms, enhancing player stats.
-
-2. **QiData**
-   - Manages the storage and retrieval of the player's Qi amount.
-   - Implements serialization for saving and loading Qi data.
-
-3. **RealmDisplayManager**
-   - Updates and displays the player's current realm and Qi amount.
-   - Renders GUI elements to show this information to the player.
-
-4. **CultivationScreen**
-   - Creates a custom GUI screen to display the player's current realm and Qi amount.
-   - Provides a user-friendly interface for players to view their progress.
-
-5. **SagecraftMod**
-   - Serves as the main entry point for the mod.
-   - Manages event subscriptions and the Qi data instance.
-
-## Recommendations
-- **Enhance Documentation**: While some classes have documentation, others could benefit from additional comments explaining their purpose and functionality.
-- **Improve Error Handling**: Implement error handling in methods that interact with player data to ensure a smoother user experience.
-- **Expand Features**: Consider adding more features related to Qi management, such as visual effects during breakthroughs or additional realms with unique abilities.
-
-
-## References:
-
-- Forge Documentation: https://docs.minecraftforge.net/en/latest/
-- Minecraft Forge Forums: https://forums.minecraftforge.net/
-- Minecraft Forge GitHub: https://github.com/MinecraftForge/MinecraftForge
-- Minecraft Forge Discord: https://discord.gg/UvedJ9m
-- Minecraft Forge Wiki: https://minecraft.gamepedia.com/Minecraft_Wiki
-- Minecraft Forge Modding API: https://github.com/MinecraftForge/MinecraftForge/tree/master/src
-- Minecraft Forge Modding Tutorials: https://mcforge.readthedocs.io/en/latest/
-- Structuring of mod: https://docs.minecraftforge.net/en/latest/gettingstarted/structuring/
-- Key Mappings: https://docs.minecraftforge.net/en/latest/misc/keymappings/
-- GUI Screens: https://docs.minecraftforge.net/en/latest/gui/screens/
-- Menus: https://docs.minecraftforge.net/en/latest/gui/menus/
-- Data Storage: https://docs.minecraftforge.net/en/latest/datastorage/saveddata/
-- Mod Setup: https://docs.minecraftforge.net/en/latest/misc/overview/
+## Follow-up Tasks
+- Update documentation
+- Create unit tests for new functionality
+- Review error handling
+- Performance testing
+- Update mod version number

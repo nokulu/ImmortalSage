@@ -2,7 +2,9 @@ package com.example.sagecraft;
 
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.saveddata.SavedData; // Updated import
+import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.world.level.saveddata.SavedData;
+
 
 /**
  * Documentation:
@@ -20,11 +22,16 @@ import net.minecraft.world.level.saveddata.SavedData; // Updated import
  * - idk: https://forge.gemwire.uk/wiki/Capabilities
  */
 public class QiData extends SavedData {
+    public static final Factory<QiData> FACTORY = new Factory<>(
+        () -> new QiData(),                                    // Supplier<QiData>
+        (tag, provider) -> QiData.load(tag, provider),        // BiFunction<CompoundTag, Provider, QiData>
+        DataFixTypes.LEVEL                                    // DataFixTypes parameter
+    );
     private int qiAmount; // The current amount of Qi
     private String currentPath; // The player's current path
     private int realmLevel; // The level of the realm
 
-    /**
+    /** 
      * Constructs a new QiData instance with default values.
      */
     public QiData() {
@@ -90,19 +97,20 @@ public class QiData extends SavedData {
         this.setDirty(); // Mark data as dirty to save
     }
 
-    /**
-     * Saves the current state to a CompoundTag.
-     *
-     * @param compound The CompoundTag to save data to.
-     * @return The updated CompoundTag.
-     */
-    @Override
-    public CompoundTag save(CompoundTag pTag, Provider pRegistries) {
-        pTag.putInt("QiAmount", qiAmount);
-        pTag.putString("CurrentPath", currentPath);
-        pTag.putInt("RealmLevel", realmLevel);
-        return pTag;
-    }
+/**
+ * Saves the current state to a CompoundTag.
+ *
+ * @param compound The CompoundTag to save data to.
+ * @param provider The Provider instance for registry lookups
+ * @return The updated CompoundTag.
+ */
+@Override
+public CompoundTag save(CompoundTag compound, Provider provider) {
+    compound.putInt("QiAmount", qiAmount);
+    compound.putString("CurrentPath", currentPath);
+    compound.putInt("RealmLevel", realmLevel);
+    return compound;
+}
 
     /**
      * Loads the state from a CompoundTag.
@@ -110,20 +118,17 @@ public class QiData extends SavedData {
      * @param compound The CompoundTag to load data from.
      * @return A new QiData instance with loaded data.
      */
-    public static QiData load(CompoundTag compound, Provider registries) {
+    // Update load method signature to match BiFunction
+    public static QiData load(CompoundTag tag, Provider provider) {
         QiData data = new QiData();
-        try {
-            if (compound.contains("QiAmount")) {
-                data.setQiAmount(Math.max(0, compound.getInt("QiAmount")));
-            }
-            if (compound.contains("CurrentPath")) {
-                data.setCurrentPath(compound.getString("CurrentPath"));
-            }
-            if (compound.contains("RealmLevel")) {
-                data.setRealmLevel(Math.max(0, compound.getInt("RealmLevel")));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (tag.contains("QiAmount")) {
+            data.setQiAmount(tag.getInt("QiAmount"));
+        }
+        if (tag.contains("CurrentPath")) {
+            data.setCurrentPath(tag.getString("CurrentPath"));
+        }
+        if (tag.contains("RealmLevel")) {
+            data.setRealmLevel(tag.getInt("RealmLevel"));
         }
         return data;
     }

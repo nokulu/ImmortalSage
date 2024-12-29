@@ -3,7 +3,6 @@ package com.example.sagecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import com.example.sagecraft.PlayerPathManager; // Importing PlayerPathManager
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
 

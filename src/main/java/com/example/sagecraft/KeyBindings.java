@@ -1,37 +1,82 @@
 package com.example.sagecraft;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory; // Add this import
+
+import com.mojang.blaze3d.platform.InputConstants; // Add this import
+
 import net.minecraft.client.KeyMapping;
-import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.client.event.InputEvent; 
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus; // Import Logger
+import net.minecraftforge.eventbus.api.SubscribeEvent; // Import LoggerFactory
 
-@EventBusSubscriber(modid = SagecraftMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class KeyBindings {
+    private static final Logger LOGGER = LoggerFactory.getLogger(KeyBindings.class); // Declare LOGGER
     public static KeyMapping cultivationKey;
-    public static KeyMapping guiKey; // Declare guiKey here
+    public static KeyMapping guiKey;
+    
+    public static void register(IEventBus modEventBus) {
+        modEventBus.addListener(KeyBindings::registerKeyMappings);
+        MinecraftForge.EVENT_BUS.register(KeyBindings.class);
+    }
 
-    @SubscribeEvent
-    public static void registerKeyMappings() {
-        cultivationKey = new KeyMapping("key.sagecraft.cultivation", InputConstants.KEY_X, "key.categories.sagecraft"); // Using 'X' key for cultivation
-        guiKey = new KeyMapping("key.sagecraft.open_gui", InputConstants.KEY_P, "key.categories.sagecraft"); // Using 'P' key to open GUI
+    public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        cultivationKey = new KeyMapping(
+            "key.sagecraft.cultivation",
+            InputConstants.KEY_X,
+            "key.categories.sagecraft"
+        );
         
-        // Register the key mappings
-        // Assuming the registration is done through the event bus or another method
+        guiKey = new KeyMapping(
+            "key.sagecraft.open_gui",
+            InputConstants.KEY_P,
+            "key.categories.sagecraft"
+        );
+
+        event.register(cultivationKey);
+        event.register(guiKey);
     }
 
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        registerKeyMappings();
+    public static void onKeyInput(InputEvent.Key event) {
+        if (guiKey.consumeClick()) {
+            // Open the path selection GUI
+            Player player = Minecraft.getInstance().player; // Get the player instance
+            if (player != null) {
+                Minecraft.getInstance().setScreen(new GuiPathSelection(new PlayerPathManager(player))); // Pass the player instance
+            } else {
+                // Handle the case where the player is null (optional)
+                LOGGER.warn("Player instance is null, cannot open GUI.");
+            }
+        } else if (cultivationKey.isDown()) {
+            // Handle meditation (hold)
+            startMeditation();
+        } else if (cultivationKey.consumeClick()) {
+            // Handle single click
+            gainQiFromClick();
+        }
+    }
+
+    private static void startMeditation() {
+        // TODO: Implement meditation start
+    }
+
+    private static void gainQiFromClick() {
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        if (player != null) {
+            player.getCapability(QiCapability.CAPABILITY_QI_MANAGER).ifPresent(qi -> {
+                String currentPath = qi.getCurrentPath();
+                int qiGainAmount = 10; // Define the amount of Qi to gain per click
+                qi.gainQi(qiGainAmount);
+                LOGGER.info("Gained {} Qi from click. Current Qi: {}", qiGainAmount, qi.getQiAmount());
+            });
+        } else {
+            LOGGER.warn("Player instance is null, cannot gain Qi.");
+        }
     }
 }
-
-/*
- * Documentation:
- * This class implements key mappings for the Sagecraft mod.
- * 
- * References:
- * - Key Mappings: https://docs.minecraftforge.net/en/latest/misc/keymappings/
- * - Minecraft wiki for controls: https://minecraft.wiki/w/Options#Controls
- */

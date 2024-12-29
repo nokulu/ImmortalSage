@@ -1,66 +1,108 @@
 package com.example.sagecraft;
 
-import com.example.sagecraft.PlayerPathManager; // Import for PlayerPathManager
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.client.gui.GuiGraphics; // Import for GuiGraphics
-import net.minecraftforge.common.capabilities.ForgeCapabilities; // Import for capabilities
-import net.minecraftforge.common.util.LazyOptional; // Import for LazyOptional
-import net.minecraft.client.Minecraft; // Import for accessing Minecraft instance
-import net.minecraft.client.gui.Font; // Import for Font
-import net.minecraft.network.chat.Style; // Import for Style
-import net.minecraft.network.chat.TextColor; // Import for TextColor
-import net.minecraft.ChatFormatting; // Import for ChatFormatting
+import net.minecraftforge.common.util.LazyOptional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/* 
-* Documentation:
-* This class manages the display of realm information and Qi amount for players in the Sagecraft mod.
-* It provides methods to update player name tags and render GUI elements related to the player's realm.
-* * Websites to use: https://minecraft.wiki/w/Font
-* - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/gui/font/FontSet.html
-* - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/gui/font/providers/package-summary.html
-* - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/gui/font/glyphs/package-summary.html
-* - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/gui/font/providers/FontProvider.html
-* - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/gui/font/providers/FontProviderBuilder.html
-* - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/gui/font/providers/FontProviderRegistry.html
-* - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/gui/font/providers/FontProviderRegistryImpl.html
-*  - https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21
-*/
-
+/**
+ * RealmDisplayManager handles the visual representation of cultivation realms and Qi amounts.
+ * This includes both player nametags and GUI elements.
+ * 
+ * Features:
+ * - Dynamic color coding based on cultivation path
+ * - Real-time Qi amount display
+ * - Realm level visualization
+ * - GUI positioning and rendering
+ * 
+ * @version 1.0
+ * @since 1.21.1
+ */
 public class RealmDisplayManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RealmDisplayManager.class);
+    private static final int GUI_OFFSET_X = 100;
+    private static final int GUI_OFFSET_Y_REALM = 50;
+    private static final int GUI_OFFSET_Y_QI = 70;
 
+    /**
+     * Updates the player's nametag with their current realm information.
+     * 
+     * @param player The player whose nametag should be updated
+     * @param path The player's cultivation path
+     * @param realm The player's current realm
+     */
     public void updatePlayerNameTag(Player player, String path, String realm) {
-        String nameTag = "Realm: " + realm; // Only realm name shown to others
-        int color = determineColorBasedOnPath(path); // Determine color based on current path
-        player.setCustomName(Component.literal(nameTag).withStyle(Style.EMPTY.withColor(TextColor.fromRgb(color)))); // Set name with color
+        String nameTag = "Realm: " + realm;
+        int color = determineColorBasedOnPath(path);
+        player.setCustomName(Component.literal(nameTag)
+            .withStyle(Style.EMPTY.withColor(TextColor.fromRgb(color))));
+        LOGGER.debug("Updated nametag for player {} with realm {}", player.getName(), realm);
     }
 
+    /**
+     * Renders the GUI elements showing realm and Qi information.
+     * 
+     * @param player The player whose information should be displayed
+     * @param guiGraphics The graphics context for rendering
+     * @param path The player's cultivation path
+     * @param realm The player's current realm
+     */
     public void renderGui(Player player, GuiGraphics guiGraphics, String path, String realm) {
-        String realmName = "Realm: " + realm; // Use the realm parameter directly
-        LazyOptional<QiManager> qiManagerOpt = player.getCapability(QiCapability.CAPABILITY_QI_MANAGER);
-        QiManager qiManager = qiManagerOpt.orElse(null); // Adjusted access
-        int qiAmount = (qiManager != null) ? qiManager.getQi() : 0; // Default to 0 if QiManager is not available
+        if (player == null || guiGraphics == null) {
+            LOGGER.warn("Attempted to render GUI with null player or graphics context");
+            return;
+        }
 
-        // Determine color based on player's path
-        int color = determineColorBasedOnPath(path); // Use the actual path variable
+        String realmName = "Realm: " + realm;
+        LazyOptional<IQiStorage> qiOptional = player.getCapability(QiCapability.CAPABILITY_QI_MANAGER);
+        
+        qiOptional.ifPresent(qiStorage -> {
+            int qiAmount = qiStorage.getQiAmount();
+            int color = determineColorBasedOnPath(path);
+            Font font = Minecraft.getInstance().font;
 
-        // Obtain the font from Minecraft instance
-        Font font = Minecraft.getInstance().font; // Access the default Minecraft font
+            // Render realm name
+            guiGraphics.drawString(
+                font, 
+                Component.literal(realmName), 
+                (int) player.getX() - GUI_OFFSET_X, 
+                (int) player.getY() + GUI_OFFSET_Y_REALM, 
+                color
+            );
 
-        // Render the realm name and qi amount for the player
-        guiGraphics.drawString(font, Component.literal(realmName), (int) player.getX() - 100, (int) player.getY() + 50, color);
-        guiGraphics.drawString(font, Component.literal("Qi: " + qiAmount), (int) player.getX() - 100, (int) player.getY() + 70, 0xFFFFFF); // Qi amount in white
+            // Render Qi amount
+            guiGraphics.drawString(
+                font, 
+                Component.literal("Qi: " + qiAmount), 
+                (int) player.getX() - GUI_OFFSET_X, 
+                (int) player.getY() + GUI_OFFSET_Y_QI, 
+                0xFFFFFF
+            );
+        });
     }
 
-    // Helper method to determine color based on path
+    /**
+     * Determines the color to use based on the cultivation path.
+     * 
+     * @param pathType The cultivation path
+     * @return The RGB color value for the path
+     */
     private int determineColorBasedOnPath(String pathType) {
-        switch (pathType) {
-            case "Demonic":
-                return 0xFF0000; // Red
-            case "Righteous":
-                return 0xFFD700; // Golden/Yellow
-            default:
-                return 0xFFFFFF; // White for Neutral
-        }
+        return switch (pathType) {
+            case "Demonic" -> 0xFF0000;    // Red - represents demonic cultivation
+            case "Righteous" -> 0xFFD700;   // Gold - represents righteous path
+            case "Neutral" -> 0xFFFFFF;     // White - represents neutral cultivation
+            case "Beast" -> 0x8B4513;       // Brown - represents beast cultivation
+            default -> {
+                LOGGER.warn("Unknown path type: {}, defaulting to white", pathType);
+                yield 0xFFFFFF;
+            }
+        };
     }
 }
