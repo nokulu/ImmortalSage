@@ -1,13 +1,13 @@
 {
   "minecraft:recipes/decorations/crafting_table": {
     "criteria": {
-      "unlock_right_away": "2024-12-29 04:09:28 +0200"
+      "unlock_right_away": "2025-01-11 15:23:49 +0200"
     },
     "done": true
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "minecraft:forest": "2024-12-29 04:09:29 +0200"
+      "minecraft:old_growth_spruce_taiga": "2025-01-11 15:23:50 +0200"
     },
     "done": false
   },

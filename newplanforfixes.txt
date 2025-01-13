@@ -1,0 +1,81 @@
+---------------------------------
+Name of file: HudOverlay.java
+Line of error: 8:8-8:11
+Error name: Package does not exist
+Error explanation: The package net.minecraftforge.client.event.RenderGuiOverlayEvent does not exist.
+Potential fixes: Ensure the correct version of Forge is being used and that the necessary dependencies are included.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: HudOverlay.java
+Line of error: 36:40-36:44
+Error name: Cannot find symbol
+Error explanation: The class Post cannot be found.
+Potential fixes: Check if the correct import for Post is included or if it has been renamed or removed in the current Forge version.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: PacketHandler.java
+Line of error: 13:8-13:55
+Error name: Import cannot be resolved
+Error explanation: The import net.minecraftforge.network.simple.SimpleChannel cannot be resolved.
+Potential fixes: Ensure the correct version of Forge is being used and that the necessary dependencies are included.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: PacketHandler.java
+Line of error: 15:8-15:47
+Error name: Import cannot be resolved
+Error explanation: The import net.minecraftforge.network.NetworkEvent cannot be resolved.
+Potential fixes: Ensure the correct version of Forge is being used and that the necessary dependencies are included.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: PacketHandler.java
+Line of error: 30:20-30:61
+Error name: Constructor not visible
+Error explanation: The constructor ResourceLocation(String, String) is not visible.
+Potential fixes: Use the correct method for creating ResourceLocation as per the latest Forge standards.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: QiCapability.java
+Line of error: 18:61-18:115
+Error name: Constructor not visible
+Error explanation: The constructor ResourceLocation(String, String) is not visible.
+Potential fixes: Use the correct method for creating ResourceLocation as per the latest Forge standards.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: QiCapability.java
+Line of error: 39:5-39:20
+Error name: Cannot find symbol
+Error explanation: The class SubscribeEvent cannot be resolved.
+Potential fixes: Ensure the correct import for SubscribeEvent is included or if it has been renamed or removed in the current Forge version.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: QiDataEventHandler.java
+Line of error: 45:9-45:54
+Error name: Incompatible types
+Error explanation: Player cannot be converted to IModPacket.
+Potential fixes: Ensure the correct types are being used when sending packets.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: QiDataEventHandler.java
+Line of error: 60:9-60:54
+Error name: Incompatible types
+Error explanation: Player cannot be converted to IModPacket.
+Potential fixes: Ensure the correct types are being used when sending packets.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------
+Name of file: QiUpdatePacket.java
+Line of error: 3:35-3:47
+Error name: Cannot find symbol
+Error explanation: The class NetworkEvent cannot be found.
+Potential fixes: Ensure the correct import for NetworkEvent is included or if it has been renamed or removed in the current Forge version.
+Which site/repo could help with error: Official Minecraft Forge documentation.
+
+---------------------------------

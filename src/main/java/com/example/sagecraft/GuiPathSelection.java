@@ -20,9 +20,9 @@ public class GuiPathSelection extends Screen {
         int buttonWidth = 200;
         int buttonHeight = 20;
 
-        createPathButton("Righteous", buttonWidth, buttonHeight, -30);
-        createPathButton("Demonic", buttonWidth, buttonHeight, 0);
-        createPathButton("Neutral", buttonWidth, buttonHeight, 30);
+        createPathButton("Righteous", buttonWidth, buttonHeight, 0);
+        createPathButton("Demonic", buttonWidth, buttonHeight,30);
+        createPathButton("Neutral", buttonWidth, buttonHeight, 60);
     }
 
     private void createPathButton(String pathName, int width, int height, int yOffset) {

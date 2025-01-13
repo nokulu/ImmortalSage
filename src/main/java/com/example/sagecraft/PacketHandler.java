@@ -1,22 +1,19 @@
 package com.example.sagecraft;
 
-import com.example.sagecraft.network.PathUpdatePacket;
-import com.example.sagecraft.network.QiUpdatePacket;
-import com.example.sagecraft.network.MeditationStatePacket;
-import com.example.sagecraft.network.RealmLevelPacket;
+import com.example.sagecraft.network.ConfigSyncPacket; // Ensure this import is added
 import com.example.sagecraft.network.IModPacket;
+import com.example.sagecraft.network.MeditationStatePacket;
+import com.example.sagecraft.network.PathUpdatePacket; // Ensure this import is used
+import com.example.sagecraft.network.QiUpdatePacket;
+import com.example.sagecraft.network.RealmLevelPacket;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
 import net.minecraftforge.network.ChannelBuilder;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.SimpleChannel;
-import com.example.sagecraft.network.*;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.Connection;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraft.server.players.PlayerList;
-import net.minecraft.server.players.*;
 
 /**
  * Handles network communication for Sagecraft mod.
@@ -32,8 +29,6 @@ public class PacketHandler {
         .networkProtocolVersion(PROTOCOL_VERSION)
         .simpleChannel();
 
-
-
     /**
      * Registers all network packets.
      * Called during mod initialization.
@@ -45,14 +40,14 @@ public class PacketHandler {
         INSTANCE.messageBuilder(QiUpdatePacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
             .encoder(QiUpdatePacket::encode)
             .decoder(QiUpdatePacket::decode)
-            .consumerMainThread(QiUpdatePacket::handle)
+            .consumerMainThread(QiUpdatePacket::handlePublic)
             .add();
 
         // Register MeditationState packet
         INSTANCE.messageBuilder(MeditationStatePacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
             .encoder(MeditationStatePacket::encode)
             .decoder(MeditationStatePacket::decode)
-            .consumerMainThread(MeditationStatePacket::handle)
+            .consumerMainThread((packet, context) -> packet.safeHandle(() -> context)) // Use safeHandle for correct context handling
             .add();
 
         // Register RealmLevel packet
@@ -68,7 +63,13 @@ public class PacketHandler {
             .decoder(PathUpdatePacket::decode)
             .consumerMainThread(PathUpdatePacket::handle)
             .add();
-    
+
+        // Register ConfigSync packet
+        INSTANCE.messageBuilder(ConfigSyncPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+            .encoder(ConfigSyncPacket::encode)
+            .decoder(ConfigSyncPacket::decode)
+            .consumerMainThread(ConfigSyncPacket::handle)
+            .add();
     }
     
     /**
@@ -80,9 +81,6 @@ public class PacketHandler {
         INSTANCE.send(packet, player.connection.getConnection());
     }
 
-    /**
-     * Sends packet to all players
-     */
     /**
      * Sends packet to all players
      */
@@ -101,6 +99,7 @@ public class PacketHandler {
             INSTANCE.send(packet, minecraft.getConnection().getConnection());
         }
     }
+    
     /**
      * Gets network channel instance
      */

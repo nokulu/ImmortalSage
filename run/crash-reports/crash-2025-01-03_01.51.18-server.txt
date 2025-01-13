@@ -1,0 +1,250 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 2025-01-03 01:51:18
+Description: Ticking player
+
+java.lang.ExceptionInInitializerError: null
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiDataEventHandler.handleQiAmountChange(QiDataEventHandler.java:45) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiDataEventHandler.onQiDataChange(QiDataEventHandler.java:20) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.__QiDataEventHandler_onQiDataChange_QiDataChangeEvent.invoke(.dynamic) ~[main/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:48) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:304) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:290) ~[eventbus-6.2.8.jar!/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiData.setQiAmount(QiData.java:115) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiStorageImpl.setDirty(QiStorageImpl.java:190) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiStorageImpl.setQi(QiStorageImpl.java:52) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.setQi(QiManager.java:22) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.addQi(QiManager.java:26) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.onPlayerTick(QiManager.java:146) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.__QiManager_onPlayerTick_PlayerTickEvent.invoke(.dynamic) ~[main/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:48) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:304) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:290) ~[eventbus-6.2.8.jar!/:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.event.ForgeEventFactory.post(ForgeEventFactory.java:228) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%231!/:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.event.ForgeEventFactory.onPlayerPostTick(ForgeEventFactory.java:807) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%231!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.world.entity.player.Player.tick(Player.java:324) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.level.ServerPlayer.doTick(ServerPlayer.java:552) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.network.ServerGamePacketListenerImpl.tick(ServerGamePacketListenerImpl.java:260) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.network.Connection.tick(Connection.java:406) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.network.ServerConnectionListener.tick(ServerConnectionListener.java:149) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1035) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:911) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:109) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:701) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:267) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
+Caused by: java.lang.IllegalArgumentException: Attempted to register channel sagecraft:main even though registry phase is over
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.network.NetworkRegistry.error(NetworkRegistry.java:222) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.network.NetworkRegistry.checkLock(NetworkRegistry.java:217) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.network.NetworkRegistry.register(NetworkRegistry.java:206) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.network.ChannelBuilder.createNetworkInstance(ChannelBuilder.java:182) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.network.ChannelBuilder.channel(ChannelBuilder.java:230) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.network.ChannelBuilder.simpleChannel(ChannelBuilder.java:205) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.PacketHandler.<clinit>(PacketHandler.java:30) ~[main/:?]
+	... 29 more
+Transformer Audit:
+  com.example.sagecraft.PacketHandler
+    REASON: classloading
+  com.example.sagecraft.QiData
+    REASON: classloading
+  com.example.sagecraft.QiDataEventHandler
+    REASON: classloading
+  com.example.sagecraft.QiManager
+    REASON: classloading
+  com.example.sagecraft.QiStorageImpl
+    REASON: classloading
+  com.example.sagecraft.__QiDataEventHandler_onQiDataChange_QiDataChangeEvent
+    REASON: classloading
+    PLUGIN: eventbus:BEFORE
+  com.example.sagecraft.__QiManager_onPlayerTick_PlayerTickEvent
+    REASON: classloading
+    PLUGIN: eventbus:BEFORE
+  net.minecraft.client.server.IntegratedServer
+    REASON: classloading
+  net.minecraft.network.Connection
+    REASON: classloading
+  net.minecraft.server.MinecraftServer
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraft.server.level.ServerPlayer
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraft.server.network.ServerConnectionListener
+    REASON: classloading
+  net.minecraft.server.network.ServerGamePacketListenerImpl
+    REASON: classloading
+  net.minecraft.world.entity.player.Player
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraftforge.event.ForgeEventFactory
+    REASON: classloading
+  net.minecraftforge.network.ChannelBuilder
+    REASON: classloading
+  net.minecraftforge.network.NetworkRegistry
+    REASON: classloading
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Suspected Mod: 
+	Sagecraft (sagecraft), Version: 1.0.0
+		Issue tracker URL: https://example.com/issues
+		at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiDataEventHandler.handleQiAmountChange(QiDataEventHandler.java:45)
+Stacktrace:
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiDataEventHandler.handleQiAmountChange(QiDataEventHandler.java:45) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiDataEventHandler.onQiDataChange(QiDataEventHandler.java:20) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.__QiDataEventHandler_onQiDataChange_QiDataChangeEvent.invoke(.dynamic) ~[main/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:48) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:304) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:290) ~[eventbus-6.2.8.jar!/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiData.setQiAmount(QiData.java:115) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiStorageImpl.setDirty(QiStorageImpl.java:190) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiStorageImpl.setQi(QiStorageImpl.java:52) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.setQi(QiManager.java:22) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.addQi(QiManager.java:26) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.onPlayerTick(QiManager.java:146) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.__QiManager_onPlayerTick_PlayerTickEvent.invoke(.dynamic) ~[main/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:48) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:304) ~[eventbus-6.2.8.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:290) ~[eventbus-6.2.8.jar!/:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.event.ForgeEventFactory.post(ForgeEventFactory.java:228) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%231!/:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.event.ForgeEventFactory.onPlayerPostTick(ForgeEventFactory.java:807) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%231!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.world.entity.player.Player.tick(Player.java:324) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+Transformer Audit:
+  com.example.sagecraft.QiData
+    REASON: classloading
+  com.example.sagecraft.QiDataEventHandler
+    REASON: classloading
+  com.example.sagecraft.QiManager
+    REASON: classloading
+  com.example.sagecraft.QiStorageImpl
+    REASON: classloading
+  com.example.sagecraft.__QiDataEventHandler_onQiDataChange_QiDataChangeEvent
+    REASON: classloading
+    PLUGIN: eventbus:BEFORE
+  com.example.sagecraft.__QiManager_onPlayerTick_PlayerTickEvent
+    REASON: classloading
+    PLUGIN: eventbus:BEFORE
+  net.minecraft.world.entity.player.Player
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraftforge.event.ForgeEventFactory
+    REASON: classloading
+-- Player being ticked --
+Details:
+	Entity Type: minecraft:player (net.minecraft.server.level.ServerPlayer)
+	Entity ID: 23
+	Entity Name: Dev
+	Entity's Exact location: -3.50, 86.00, -3.50
+	Entity's Block location: World: (-4,86,-4), Section: (at 12,6,12 in -1,5,-1; chunk contains blocks -16,-64,-16 to -1,319,-1), Region: (-1,-1; contains chunks -32,-32 to -1,-1, blocks -512,-64,-512 to -1,319,-1)
+	Entity's Momentum: 0.00, -0.08, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: null
+Stacktrace:
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.level.ServerPlayer.doTick(ServerPlayer.java:552) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.network.ServerGamePacketListenerImpl.tick(ServerGamePacketListenerImpl.java:260) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.network.Connection.tick(Connection.java:406) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.network.ServerConnectionListener.tick(ServerConnectionListener.java:149) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1035) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:911) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:109) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:701) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:267) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
+Transformer Audit:
+  net.minecraft.client.server.IntegratedServer
+    REASON: classloading
+  net.minecraft.network.Connection
+    REASON: classloading
+  net.minecraft.server.MinecraftServer
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraft.server.level.ServerPlayer
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraft.server.network.ServerConnectionListener
+    REASON: classloading
+  net.minecraft.server.network.ServerGamePacketListenerImpl
+    REASON: classloading
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 21.0.5, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 478516416 bytes (456 MiB) / 1082130432 bytes (1032 MiB) up to 17146314752 bytes (16352 MiB)
+	CPUs: 12
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i7-9850H CPU @ 2.60GHz
+	Identifier: Intel64 Family 6 Model 158 Stepping 13
+	Microarchitecture: Coffee Lake
+	Frequency (GHz): 2.59
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: NVIDIA Quadro RTX 3000
+	Graphics card #0 vendor: NVIDIA
+	Graphics card #0 VRAM (MiB): 6144.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 32.0.15.5612
+	Memory slot #0 capacity (MiB): 16384.00
+	Memory slot #0 clockSpeed (GHz): 2.67
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 16384.00
+	Memory slot #1 clockSpeed (GHz): 2.67
+	Memory slot #1 type: DDR4
+	Memory slot #2 capacity (MiB): 32768.00
+	Memory slot #2 clockSpeed (GHz): 3.20
+	Memory slot #2 type: DDR4
+	Virtual memory max (MiB): 69479.16
+	Virtual memory used (MiB): 28578.67
+	Swap memory total (MiB): 4096.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 26692.32, total: 487499.00
+	Space in storage for workdir (MiB): available: 26692.32, total: 487499.00
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/23, l='ServerLevel[New World]', x=-3.50, y=86.00, z=-3.50]]
+	Active Data Packs: vanilla, mod:forge, mod:sagecraft (incompatible)
+	Available Data Packs: bundle, mod:forge, mod:sagecraft (incompatible), trade_rebalance, vanilla
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Stable
+	World Seed: -6301084681027496383
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	Launched Version: MOD_DEV
+	ModLauncher: 10.2.2
+	ModLauncher launch target: forge_userdev_client
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		/ slf4jfixer PLUGINSERVICE 
+		/ runtimedistcleaner PLUGINSERVICE 
+		/ runtime_enum_extender PLUGINSERVICE 
+		/ object_holder_definalize PLUGINSERVICE 
+		/ capability_token_subclass PLUGINSERVICE 
+		/ accesstransformer PLUGINSERVICE 
+		/ eventbus PLUGINSERVICE 
+		/ mixin PLUGINSERVICE 
+		/ fml TRANSFORMATIONSERVICE 
+		/ mixin TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@52
+		javafml@52.0.28
+	Mod List: 
+		                                                  |Minecraft                     |minecraft                     |1.21.1              |DONE      |Manifest: NOSIGNATURE
+		                                                  |Forge                         |forge                         |52.0.28             |DONE      |Manifest: NOSIGNATURE
+		main                                              |Sagecraft                     |sagecraft                     |1.0.0               |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: a00b98f9-c430-4738-a1da-076b2f72c339
+	FML: 0.0
+	Forge: net.minecraftforge:52.0.28

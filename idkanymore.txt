@@ -1,0 +1,277 @@
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 8
+Error name: MODID cannot be resolved or is not a field
+Explanation of Error: The variable MODID is not defined in the current context, leading to a compilation error.
+Potential fixes:
+1. Ensure that MODID is defined in the SagecraftMod class or imported correctly.
+2. Check for any typos in the variable name.
+Needed resources/knowledge to fix error: Understanding of the SagecraftMod class and its fields.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 8
+Error name: cannot find symbol
+Explanation of Error: The variable MODID is not recognized in the SagecraftMod class.
+Potential fixes:
+1. Define MODID in the SagecraftMod class.
+2. Ensure proper access modifiers are set for MODID.
+Needed resources/knowledge to fix error: Knowledge of variable scope and class structure.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 15
+Error name: The field SagecraftMod.LOGGER is not visible
+Explanation of Error: The LOGGER field in SagecraftMod is private and cannot be accessed from QiDataEventHandler.
+Potential fixes:
+1. Change the access modifier of LOGGER to public or protected.
+2. Create a public getter method in SagecraftMod to access LOGGER.
+Needed resources/knowledge to fix error: Understanding of access modifiers in Java.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 15
+Error name: LOGGER has private access in SagecraftMod
+Explanation of Error: The LOGGER field is private and cannot be accessed directly.
+Potential fixes:
+1. Modify the access level of LOGGER.
+2. Use a getter method to access the logger.
+Needed resources/knowledge to fix error: Knowledge of Java access control.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 15
+Error name: cannot find symbol
+Explanation of Error: The method log(Level,String,QiDataChangeEvent) is not defined for the LOGGER variable.
+Potential fixes:
+1. Verify that the log method exists in the Logger class.
+2. Check the parameters being passed to the log method.
+Needed resources/knowledge to fix error: Familiarity with the Logger class and its methods.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 29
+Error name: The field SagecraftMod.LOGGER is not visible
+Explanation of Error: The LOGGER field is private and cannot be accessed from QiDataEventHandler.
+Potential fixes:
+1. Change the access modifier of LOGGER to public or protected.
+2. Create a public getter method in SagecraftMod to access LOGGER.
+Needed resources/knowledge to fix error: Understanding of access modifiers in Java.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 29
+Error name: LOGGER has private access in SagecraftMod
+Explanation of Error: The LOGGER field is private and cannot be accessed directly.
+Potential fixes:
+1. Modify the access level of LOGGER.
+2. Use a getter method to access the logger.
+Needed resources/knowledge to fix error: Knowledge of Java access control.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 33
+Error name: The field SagecraftMod.LOGGER is not visible
+Explanation of Error: The LOGGER field is private and cannot be accessed from QiDataEventHandler.
+Potential fixes:
+1. Change the access modifier of LOGGER to public or protected.
+2. Create a public getter method in SagecraftMod to access LOGGER.
+Needed resources/knowledge to fix error: Understanding of access modifiers in Java.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 33
+Error name: LOGGER has private access in SagecraftMod
+Explanation of Error: The LOGGER field is private and cannot be accessed directly.
+Potential fixes:
+1. Modify the access level of LOGGER.
+2. Use a getter method to access the logger.
+Needed resources/knowledge to fix error: Knowledge of Java access control.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 42
+Error name: The method updateQiDisplay(int) is undefined for the type HudOverlay
+Explanation of Error: The method updateQiDisplay is not defined in the HudOverlay class.
+Potential fixes:
+1. Implement the updateQiDisplay method in the HudOverlay class.
+2. Check for any typos in the method name.
+Needed resources/knowledge to fix error: Understanding of the HudOverlay class and its methods.
+Severity: Medium
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 45
+Error name: The method sendToClient(Player, PathUpdatePacket) is undefined for the type PacketHandler
+Explanation of Error: The method sendToClient is not defined in the PacketHandler class.
+Potential fixes:
+1. Implement the sendToClient method in the PacketHandler class.
+2. Check for any typos in the method name.
+Needed resources/knowledge to fix error: Understanding of the PacketHandler class and its methods.
+Severity: Medium
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 46
+Error name: The constructor PathUpdatePacket(QiDataChangeEvent.ChangeType, int) is undefined
+Explanation of Error: The constructor for PathUpdatePacket does not match the provided parameters.
+Potential fixes:
+1. Check the constructor definition for PathUpdatePacket and ensure it matches the parameters being passed.
+2. Modify the parameters being passed to match the constructor.
+Needed resources/knowledge to fix error: Understanding of the PathUpdatePacket class and its constructors.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 48
+Error name: The field SagecraftMod.LOGGER is not visible
+Explanation of Error: The LOGGER field is private and cannot be accessed from QiDataEventHandler.
+Potential fixes:
+1. Change the access modifier of LOGGER to public or protected.
+2. Create a public getter method in SagecraftMod to access LOGGER.
+Needed resources/knowledge to fix error: Understanding of access modifiers in Java.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 57
+Error name: The method updatePathEffects(Player, String) is undefined for the type PlayerPathManager
+Explanation of Error: The method updatePathEffects is not defined in the PlayerPathManager class.
+Potential fixes:
+1. Implement the updatePathEffects method in the PlayerPathManager class.
+2. Check for any typos in the method name.
+Needed resources/knowledge to fix error: Understanding of the PlayerPathManager class and its methods.
+Severity: Medium
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 60
+Error name: The method sendToClient(Player, PathUpdatePacket) is undefined for the type PacketHandler
+Explanation of Error: The method sendToClient is not defined in the PacketHandler class.
+Potential fixes:
+1. Implement the sendToClient method in the PacketHandler class.
+2. Check for any typos in the method name.
+Needed resources/knowledge to fix error: Understanding of the PacketHandler class and its methods.
+Severity: Medium
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 61
+Error name: The constructor PathUpdatePacket(QiDataChangeEvent.ChangeType, String) is undefined
+Explanation of Error: The constructor for PathUpdatePacket does not match the provided parameters.
+Potential fixes:
+1. Check the constructor definition for PathUpdatePacket and ensure it matches the parameters being passed.
+2. Modify the parameters being passed to match the constructor.
+Needed resources/knowledge to fix error: Understanding of the PathUpdatePacket class and its constructors.
+Severity: High
+
+-----------------------------------
+File name: QiDataEventHandler.java
+Line of error: 63
+Error name: The field SagecraftMod.LOGGER is not visible
+Explanation of Error: The LOGGER field is private and cannot be accessed from QiDataEventHandler.
+Potential fixes:
+1. Change the access modifier of LOGGER to public or protected.
+2. Create a public getter method in SagecraftMod to access LOGGER.
+Needed resources/knowledge to fix error: Understanding of access modifiers in Java.
+Severity: High
+
+-----------------------------------
+File name: RealmLevelUpEvent.java
+Line of error: 35
+Error name: REALM_UPGRADE_COST_MULTIPLIER cannot be resolved or is not a field
+Explanation of Error: The variable REALM_UPGRADE_COST_MULTIPLIER is not defined in the current context, leading to a compilation error.
+Potential fixes:
+1. Ensure that REALM_UPGRADE_COST_MULTIPLIER is defined in the Config class or imported correctly.
+2. Check for any typos in the variable name.
+Needed resources/knowledge to fix error: Understanding of the Config class and its fields.
+Severity: High
+
+-----------------------------------
+File name: RealmLevelUpEvent.java
+Line of error: 35
+Error name: cannot find symbol
+Explanation of Error: The variable REALM_UPGRADE_COST_MULTIPLIER is not recognized in the Config class.
+Potential fixes:
+1. Define REALM_UPGRADE_COST_MULTIPLIER in the Config class.
+2. Ensure proper access modifiers are set for REALM_UPGRADE_COST_MULTIPLIER.
+Needed resources/knowledge to fix error: Knowledge of variable scope and class structure.
+Severity: High
+
+-----------------------------------
+File name: ClientSetup.java
+Line of error: 4
+Error name: The import net.minecraft.client.gui.screens.MenuScreens is never used
+Explanation of Error: The import statement for MenuScreens is present but not utilized in the code.
+Potential fixes:
+1. Remove the unused import statement.
+2. If needed, ensure that MenuScreens is used in the code.
+Needed resources/knowledge to fix error: Understanding of import statements in Java.
+Severity: Low
+
+-----------------------------------
+File name: Config.java
+Line of error: 54
+Error name: The method get() from the type ModLoadingContext has been deprecated since version 1.21.1 and marked for removal
+Explanation of Error: The get() method is deprecated and should not be used in future versions.
+Potential fixes:
+1. Replace the usage of get() with the recommended alternative method.
+2. Check the documentation for the updated method.
+Needed resources/knowledge to fix error: Familiarity with the ModLoadingContext class and its methods.
+Severity: Medium
+
+-----------------------------------
+File name: CultivationScreen.java
+Line of error: 31
+Error name: The value of the local variable leftPos is not used
+Explanation of Error: The variable leftPos is declared but not utilized in the code.
+Potential fixes:
+1. Use the leftPos variable in the code where necessary.
+2. Remove the variable if it is not needed.
+Needed resources/knowledge to fix error: Understanding of variable usage in Java.
+Severity: Low
+
+-----------------------------------
+File name: CultivationScreen.java
+Line of error: 32
+Error name: The value of the local variable topPos is not used
+Explanation of Error: The variable topPos is declared but not utilized in the code.
+Potential fixes:
+1. Use the topPos variable in the code where necessary.
+2. Remove the variable if it is not needed.
+Needed resources/knowledge to fix error: Understanding of variable usage in Java.
+Severity: Low
+
+-----------------------------------
+File name: HudOverlay.java
+Line of error: 8
+Error name: Unused Import
+Explanation of Error: The import statement is present but not utilized in the code.
+Potential fixes:
+1. Remove the unused import statement.
+2. If needed, ensure that the imported class is used in the code.
+Needed resources/knowledge to fix error: Understanding of import statements in Java.
+Severity: Low
+
+-----------------------------------
+File name: HudOverlay.java
+Line of error: 8
+Error name: The import net.minecraft.network.chat.Component is never used
+Explanation of Error: The import statement for Component is present but not utilized in the code.
+Potential fixes:
+1. Remove the unused import statement.
+2. If needed, ensure that Component is used in the code.
+Needed resources/knowledge to fix error: Understanding of import statements in Java.
+Severity: Low
+
+-----------------------------------
+File name: HudOverlay.java

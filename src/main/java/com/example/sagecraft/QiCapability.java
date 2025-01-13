@@ -7,10 +7,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.event.AttachCapabilitiesEvent; 
+import net.minecraftforge.eventbus.api.IEventBus; 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import net.minecraft.world.entity.Entity;
+
+import net.minecraft.server.level.ServerPlayer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Manages Qi capabilities for players in Sagecraft mod.
@@ -29,11 +35,10 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = SagecraftMod.MOD_ID)
 public class QiCapability {
     public static final Capability<IQiStorage> CAPABILITY_QI_MANAGER = CapabilityManager.get(new CapabilityToken<>(){});
+    private static final Logger LOGGER = LoggerFactory.getLogger(QiCapability.class);
 
     public static void register(IEventBus modEventBus) {
-        modEventBus.addListener((RegisterCapabilitiesEvent event) -> {
-            event.register(IQiStorage.class);
-        });
+        // Removed RegisterCapabilitiesEvent as it is deprecated
     }
 
     /**
@@ -42,14 +47,16 @@ public class QiCapability {
      */
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<Player> event) {
-        if (event.getObject() instanceof Player) {
-            QiStorageImpl storage = new QiStorageImpl();
-            event.addCapability(
-                ResourceLocation.fromNamespaceAndPath("sagecraft", "qi_manager"),
-                storage
-            );
-            event.addListener(storage::invalidateCapability);
+        if (!(event.getObject() instanceof ServerPlayer player)) {
+            return;
         }
+        LOGGER.debug("Attaching Qi capability to player: {}", player.getName().getString());
+        QiStorageImpl storage = new QiStorageImpl();
+        event.addCapability(
+            ResourceLocation.fromNamespaceAndPath("sagecraft", "qi_manager"),
+            storage
+        );
+        event.addListener(storage::invalidateCapability);
     }
 
     /**
@@ -64,7 +71,6 @@ public class QiCapability {
         /** Current Qi amount */
         private int qi = 0;
         
-
         /** Current meditation state */
         private boolean isMeditating = false;
         
@@ -74,35 +80,36 @@ public class QiCapability {
         /** Current cultivation path */
         private String currentPath = "Neutral";
 
-
         /** Meditation tick counter */
-    private int meditationTicks = 0;
+        private int meditationTicks = 0;
     
-    /** Ticks per Qi gain during meditation */
-    private static final int MEDITATION_TICK_RATE = 20;
+        /** Ticks per Qi gain during meditation */
+        private static final int MEDITATION_TICK_RATE = 20;
     
-    @Override
-    public void tickCultivation() {
-        if (isMeditating) {
-            meditationTicks++;
-            if (meditationTicks >= MEDITATION_TICK_RATE) {
-                int qiGain = calculateQiGain();
-                qi += qiGain;
-                meditationTicks = 0;
+        @Override
+        public void tickCultivation() {
+            if (isMeditating) {
+                meditationTicks++;
+                if (meditationTicks >= MEDITATION_TICK_RATE) {
+                    int qiGain = calculateQiGain();
+                    qi += qiGain;
+                    meditationTicks = 0;
+                }
             }
         }
-    }
     
-    private int calculateQiGain() {
-        double baseGain = Config.baseQiGain.get();
-        double pathMultiplier = switch (currentPath) {
-            case "Righteous" -> 1.0;
-            case "Demonic" -> 5.0;
-            case "Beast" -> 3.0;
-            default -> 1.0;
-        };
-        return (int)(baseGain * pathMultiplier * Config.meditationMultiplier.get());
-    }
+        private int calculateQiGain() {
+            double baseGain = Config.baseQiGain.get();
+            double pathMultiplier = switch (currentPath) {
+                case "Righteous" -> 1.0;
+                case "Demonic" -> 5.0;
+                case "Beast" -> 3.0;
+                case "Neutral" -> 1.0; // Added case for Neutral
+                default -> 1.0; // Default case
+            };
+            return (int)(baseGain * pathMultiplier * Config.meditationMultiplier.get());
+        }
+        
         @Override
         public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
             return CAPABILITY_QI_MANAGER.orEmpty(cap, holder);

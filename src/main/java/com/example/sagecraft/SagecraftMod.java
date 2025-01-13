@@ -8,12 +8,9 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-// Removed unused import
-// import net.minecraftforge.client.gui.GuiOverlayManager; // Import for GuiOverlayManager
-import net.minecraft.world.entity.player.Player; // Import for Player
-import net.minecraft.client.Minecraft; // Import for Minecraft
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.client.Minecraft;
 import org.slf4j.Logger;
-import net.minecraftforge.event.entity.player.PlayerEvent; // Import for PlayerEvent
 import org.slf4j.LoggerFactory;
 
 /**
@@ -23,7 +20,7 @@ import org.slf4j.LoggerFactory;
 @Mod(SagecraftMod.MOD_ID)
 public class SagecraftMod {
     public static final String MOD_ID = "sagecraft";
-    private static final Logger LOGGER = LoggerFactory.getLogger(SagecraftMod.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(SagecraftMod.class);
 
     public SagecraftMod() {
         LOGGER.info("Initializing Sagecraft Mod");
@@ -51,7 +48,7 @@ public class SagecraftMod {
         MinecraftForge.EVENT_BUS.register(this);
         
         modEventBus.addListener(this::onConfigReload);
-   
+        
         LOGGER.info("Sagecraft Mod Initialized and ready for usage!");
         LOGGER.info("Happy Cultivation!");
     }
@@ -69,23 +66,30 @@ public class SagecraftMod {
         
         // Register GUI classes
         event.enqueueWork(() -> {
-            // Obtain the current player instance
-            Player currentPlayer = Minecraft.getInstance().player; // This is a common way to get the player instance
-            PlayerPathManager pathManager = null; // Declare pathManager here
+            Player currentPlayer = Minecraft.getInstance().player;
             if (currentPlayer != null) {
-                pathManager = new PlayerPathManager(currentPlayer); // Instantiate pathManager
+                LOGGER.debug("Current player: {}", currentPlayer);
+                PlayerPathManager pathManager = new PlayerPathManager(currentPlayer);
                 ScreenManager.register(GuiPathSelection.class, new GuiPathSelection(pathManager));
+                
+                currentPlayer.getCapability(QiCapability.CAPABILITY_QI_MANAGER).ifPresent(qiStorage -> {
+                    QiManager qiManager = (QiManager) qiStorage;
+                    ScreenManager.register(CultivationScreen.class, new CultivationScreen(
+                        QiManager.getRealmName(qiManager.getRealmLevel()), 
+                        qiManager, 
+                        pathManager 
+                    ));
+                });
             } else {
-                LOGGER.warn("Current player is null, cannot initialize PlayerPathManager.");
+                LOGGER.warn("Current player is null, cannot access Qi capabilities.");
             }
-            ScreenManager.register(CultivationScreen.class, new CultivationScreen("defaultRealm", 0, "defaultPath", false));
         });
     }
 
     private void onConfigReload(final ModConfigEvent.Reloading event) {
         if (event.getConfig().getType() == ModConfig.Type.COMMON) {
             LOGGER.info("Reloading Sagecraft configuration");
-            // Future: Sync to clients
+            // TODO: Sync to clients
         }
     }
 }

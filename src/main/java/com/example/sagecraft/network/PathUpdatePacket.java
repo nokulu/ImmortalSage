@@ -4,6 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.network.CustomPayloadEvent;
 import com.example.sagecraft.QiCapability;
+import com.example.sagecraft.QiDataChangeEvent; // Import statement added
 
 /**
  * Network packet for updating player cultivation path.
@@ -12,6 +13,7 @@ import com.example.sagecraft.QiCapability;
 public class PathUpdatePacket {
     /** Current cultivation path */
     private final String path;
+    private final QiDataChangeEvent.ChangeType changeType;
 
     /**
      * Creates new path update packet with empty path.
@@ -19,6 +21,7 @@ public class PathUpdatePacket {
      */
     public PathUpdatePacket() {
         this.path = "";
+        this.changeType = QiDataChangeEvent.ChangeType.QI_AMOUNT; // Default value
     }
 
     /**
@@ -27,6 +30,27 @@ public class PathUpdatePacket {
      */
     public PathUpdatePacket(String path) {
         this.path = path;
+        this.changeType = QiDataChangeEvent.ChangeType.PATH; // Default value
+    }
+
+    /**
+     * Creates new path update packet with specified change type and path.
+     * @param changeType The type of change
+     * @param path The new cultivation path
+     */
+    public PathUpdatePacket(QiDataChangeEvent.ChangeType changeType, String path) {
+        this.changeType = changeType;
+        this.path = path;
+    }
+
+    /**
+     * Creates new path update packet with specified change type and level.
+     * @param changeType The type of change
+     * @param level The new level
+     */
+    public PathUpdatePacket(QiDataChangeEvent.ChangeType changeType, int level) {
+        this.changeType = changeType;
+        this.path = String.valueOf(level); // Convert level to String
     }
 
     /**
@@ -71,5 +95,4 @@ public class PathUpdatePacket {
     public String getPath() {
         return path;
     }
-
 }

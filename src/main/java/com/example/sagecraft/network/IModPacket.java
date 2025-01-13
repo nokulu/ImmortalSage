@@ -1,8 +1,9 @@
 package com.example.sagecraft.network;
 
+import java.util.function.Supplier;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.event.network.CustomPayloadEvent.Context;
-import java.util.function.Supplier;
 
 public interface IModPacket {
     void encode(FriendlyByteBuf buf);
@@ -11,6 +12,6 @@ public interface IModPacket {
     // Optional helper method for common handling pattern
     default void safeHandle(Supplier<Context> ctx) {
         ctx.get().enqueueWork(() -> handle(ctx));
-        ctx.get().setPacketHandled(true);
+        ctx.get().setPacketHandled(true); 
     }
 }

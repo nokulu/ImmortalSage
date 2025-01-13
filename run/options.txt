@@ -85,7 +85,7 @@ allowServerListing:true
 onlyShowSecureChat:false
 panoramaScrollSpeed:1.0
 telemetryOptInExtra:false
-onboardAccessibility:true
+onboardAccessibility:false
 menuBackgroundBlurriness:5
 key_key.attack:key.mouse.left
 key_key.use:key.mouse.right

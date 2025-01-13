@@ -1,13 +1,14 @@
 package com.example.sagecraft.network;
 
+import java.util.UUID;
+import java.util.function.Supplier;
 
 import com.example.sagecraft.QiCapability;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.event.network.CustomPayloadEvent.Context;
-import java.util.function.Supplier;
-import java.util.UUID;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.network.CustomPayloadEvent.Context;
 
 /**
  * Network packet for synchronizing Qi values between server and client.
@@ -31,8 +32,13 @@ public class QiUpdatePacket implements IModPacket {
     public static QiUpdatePacket decode(FriendlyByteBuf buf) {
         return new QiUpdatePacket(buf.readInt(), buf.readUUID());
     }
+ 
+    @Override
+    public void handle(Supplier<Context> ctx) {
+        handlePublic(this, ctx.get());
+    }
 
-    public static void handle(QiUpdatePacket msg, Context context) {
+    public static void handlePublic(QiUpdatePacket msg, Context context) {
         context.enqueueWork(() -> {
             Player player = Minecraft.getInstance().level.getPlayerByUUID(msg.playerId);
             if (player != null) {
@@ -42,10 +48,5 @@ public class QiUpdatePacket implements IModPacket {
             }
         });
         context.setPacketHandled(true);
-    }
-
-    @Override
-    public void handle(Supplier<Context> ctx) {
-        handle(this, ctx.get());
     }
 }

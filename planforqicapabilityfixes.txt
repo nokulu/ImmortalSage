@@ -1,0 +1,35 @@
+### Plan for Qi Capability Fixes
+
+#### Information Gathered:
+- The `QiCapability` class is responsible for attaching the Qi capability to player entities.
+- The `QiStorageImpl` class manages the Qi data associated with players.
+- Warnings indicate that the capability is not being attached, likely due to issues with event triggering or player profile availability.
+
+#### Plan:
+1. **Review Event Handling**:
+   - Ensure that the `onAttachCapabilities` method is being triggered correctly for player entities.
+   - Check if the event bus is properly set up to listen for player-related events.
+
+2. **Debugging**:
+   - Add additional logging to track when the `onAttachCapabilities` method is called and what entities are being processed.
+   - Verify that the player entity is correctly identified and that the game profile is available.
+
+4. **Research**:
+   - Investigate any known issues with the Forge event bus and capability system that may affect the attachment of capabilities.
+   - Review documentation on capabilities in Minecraft Forge to ensure compliance with best practices.
+
+5. **Implementation**:
+   - Implement any necessary changes based on findings from debugging and research.
+   - Ensure that the Qi capability is correctly registered and attached to player entities.
+
+6. **Documentation**:
+   - Document any changes made to the codebase and update comments to reflect the current logic and functionality.
+
+#### Dependent Files to be Edited:
+- `QiCapability.java`
+- `QiStorageImpl.java`
+- Any related event handling classes that may affect player capabilities.
+
+#### Follow-up Steps:
+- Verify the changes in the files.
+- Confirm with the user for any additional requirements or modifications.

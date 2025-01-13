@@ -1,0 +1,259 @@
+---- Minecraft Crash Report ----
+// You're mean.
+
+Time: 2025-01-02 14:57:41
+Description: Unexpected error
+
+java.lang.IllegalArgumentException: QiStorage cannot be null
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.<init>(QiManager.java:38) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.KeyBindings.openCultivationScreen(KeyBindings.java:82) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.KeyBindings.onKeyInput(KeyBindings.java:58) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.__KeyBindings_onKeyInput_Key.invoke(.dynamic) ~[main/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:48) ~[eventbus-6.2.8.jar:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:304) ~[eventbus-6.2.8.jar:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:290) ~[eventbus-6.2.8.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.client.ForgeHooksClient.onKeyInput(ForgeHooksClient.java:577) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.KeyboardHandler.keyPress(KeyboardHandler.java:479) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.KeyboardHandler.lambda$setup$8(KeyboardHandler.java:503) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:93) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.KeyboardHandler.lambda$setup$9(KeyboardHandler.java:503) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at SECURE-BOOTSTRAP/org.lwjgl.glfw@3.3.3+5/org.lwjgl.glfw.GLFWKeyCallbackI.callback(GLFWKeyCallbackI.java:44) ~[lwjgl-glfw-3.3.3.jar:build 5]
+	at SECURE-BOOTSTRAP/org.lwjgl@3.3.3+5/org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.3.jar:build 5]
+	at SECURE-BOOTSTRAP/org.lwjgl.glfw@3.3.3+5/org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.3.jar:build 5]
+	at TRANSFORMER/minecraft@1.21.1/com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:134) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:143) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/com.mojang.blaze3d.platform.Window.updateDisplay(Window.java:290) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.runTick(Minecraft.java:1202) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.run(Minecraft.java:795) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:228) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@1.21.1-52.0.28/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:85) ~[fmlloader-1.21.1-52.0.28.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@1.21.1-52.0.28/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.lambda$makeService$0(CommonLaunchHandler.java:69) ~[fmlloader-1.21.1-52.0.28.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:77) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:97) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.Launcher.run(Launcher.java:116) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.Launcher.main(Launcher.java:75) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.BootstrapEntry.main(BootstrapEntry.java:17) [modlauncher-10.2.2.jar!/:?]
+	at net.minecraftforge.bootstrap@2.1.3/net.minecraftforge.bootstrap.Bootstrap.moduleMain(Bootstrap.java:188) [bootstrap-2.1.3.jar!/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at net.minecraftforge.bootstrap.Bootstrap.bootstrapMain(Bootstrap.java:133) [bootstrap-2.1.3.jar:2.1.3]
+	at net.minecraftforge.bootstrap.Bootstrap.start(Bootstrap.java:53) [bootstrap-2.1.3.jar:2.1.3]
+	at net.minecraftforge.bootstrap.ForgeBootstrap.main(ForgeBootstrap.java:19) [bootstrap-2.1.3.jar:2.1.3]
+Transformer Audit:
+  com.example.sagecraft.KeyBindings
+    REASON: classloading
+  com.example.sagecraft.QiManager
+    REASON: classloading
+  com.example.sagecraft.__KeyBindings_onKeyInput_Key
+    REASON: classloading
+    PLUGIN: eventbus:BEFORE
+  com.mojang.blaze3d.platform.Window
+    REASON: classloading
+    PLUGIN: runtimedistcleaner:AFTER
+  com.mojang.blaze3d.systems.RenderSystem
+    REASON: classloading
+  net.minecraft.client.KeyboardHandler
+    REASON: classloading
+  net.minecraft.client.Minecraft
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+    PLUGIN: runtimedistcleaner:AFTER
+  net.minecraft.client.main.Main
+    REASON: classloading
+  net.minecraft.util.thread.BlockableEventLoop
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraftforge.client.ForgeHooksClient
+    REASON: classloading
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Suspected Mod: 
+	Sagecraft (sagecraft), Version: 1.0.0
+		Issue tracker URL: https://example.com/issues
+		at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.<init>(QiManager.java:38)
+Stacktrace:
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.QiManager.<init>(QiManager.java:38) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.KeyBindings.openCultivationScreen(KeyBindings.java:82) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.KeyBindings.onKeyInput(KeyBindings.java:58) ~[main/:?]
+	at TRANSFORMER/sagecraft@1.0.0/com.example.sagecraft.__KeyBindings_onKeyInput_Key.invoke(.dynamic) ~[main/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:48) ~[eventbus-6.2.8.jar:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:304) ~[eventbus-6.2.8.jar:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:290) ~[eventbus-6.2.8.jar:?]
+	at TRANSFORMER/net.minecraftforge.forge@52.0.28/net.minecraftforge.client.ForgeHooksClient.onKeyInput(ForgeHooksClient.java:577) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.KeyboardHandler.keyPress(KeyboardHandler.java:479) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.KeyboardHandler.lambda$setup$8(KeyboardHandler.java:503) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.util.thread.BlockableEventLoop.execute(BlockableEventLoop.java:93) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.KeyboardHandler.lambda$setup$9(KeyboardHandler.java:503) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at SECURE-BOOTSTRAP/org.lwjgl.glfw@3.3.3+5/org.lwjgl.glfw.GLFWKeyCallbackI.callback(GLFWKeyCallbackI.java:44) ~[lwjgl-glfw-3.3.3.jar!/:build 5]
+	at SECURE-BOOTSTRAP/org.lwjgl@3.3.3+5/org.lwjgl.system.JNI.invokeV(Native Method) ~[lwjgl-3.3.3.jar!/:build 5]
+	at SECURE-BOOTSTRAP/org.lwjgl.glfw@3.3.3+5/org.lwjgl.glfw.GLFW.glfwPollEvents(GLFW.java:3438) ~[lwjgl-glfw-3.3.3.jar!/:build 5]
+	at TRANSFORMER/minecraft@1.21.1/com.mojang.blaze3d.systems.RenderSystem.pollEvents(RenderSystem.java:134) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+	at TRANSFORMER/minecraft@1.21.1/com.mojang.blaze3d.systems.RenderSystem.flipFrame(RenderSystem.java:143) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar%230!/:?]
+Transformer Audit:
+  com.example.sagecraft.KeyBindings
+    REASON: classloading
+  com.example.sagecraft.QiManager
+    REASON: classloading
+  com.example.sagecraft.__KeyBindings_onKeyInput_Key
+    REASON: classloading
+    PLUGIN: eventbus:BEFORE
+  com.mojang.blaze3d.systems.RenderSystem
+    REASON: classloading
+  net.minecraft.client.KeyboardHandler
+    REASON: classloading
+  net.minecraft.util.thread.BlockableEventLoop
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraftforge.client.ForgeHooksClient
+    REASON: classloading
+-- Uptime --
+Details:
+	JVM uptime: 49.557s
+	Wall uptime: 37.085s
+	High-res time: 46.234s
+	Client ticks: 541 ticks / 27.050s
+Stacktrace:
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.fillReport(Minecraft.java:2376) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.emergencySaveAndCrash(Minecraft.java:856) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.Minecraft.run(Minecraft.java:816) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at TRANSFORMER/minecraft@1.21.1/net.minecraft.client.main.Main.main(Main.java:228) ~[forge-1.21.1-52.0.28_mapped_parchment_2024.11.17-1.21.1-recomp.jar:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@1.21.1-52.0.28/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:85) ~[fmlloader-1.21.1-52.0.28.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@1.21.1-52.0.28/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.lambda$makeService$0(CommonLaunchHandler.java:69) ~[fmlloader-1.21.1-52.0.28.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:77) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:97) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.Launcher.run(Launcher.java:116) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.Launcher.main(Launcher.java:75) [modlauncher-10.2.2.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.2/cpw.mods.modlauncher.BootstrapEntry.main(BootstrapEntry.java:17) [modlauncher-10.2.2.jar!/:?]
+	at net.minecraftforge.bootstrap@2.1.3/net.minecraftforge.bootstrap.Bootstrap.moduleMain(Bootstrap.java:188) [bootstrap-2.1.3.jar!/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at net.minecraftforge.bootstrap.Bootstrap.bootstrapMain(Bootstrap.java:133) [bootstrap-2.1.3.jar:2.1.3]
+	at net.minecraftforge.bootstrap.Bootstrap.start(Bootstrap.java:53) [bootstrap-2.1.3.jar:2.1.3]
+	at net.minecraftforge.bootstrap.ForgeBootstrap.main(ForgeBootstrap.java:19) [bootstrap-2.1.3.jar:2.1.3]
+Transformer Audit:
+  net.minecraft.client.Minecraft
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+    PLUGIN: runtimedistcleaner:AFTER
+  net.minecraft.client.main.Main
+    REASON: classloading
+
+
+-- Affected level --
+Details:
+	All players: 1 total; [LocalPlayer['Dev'/29, l='ClientLevel', x=-26.50, y=70.00, z=59.50]]
+	Chunk stats: 961, 239
+	Level dimension: minecraft:overworld
+	Level spawn location: World: (-32,76,64), Section: (at 0,12,0 in -2,4,4; chunk contains blocks -32,-64,64 to -17,319,79), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,-64,0 to -1,319,511)
+	Level time: 260 game time, 260 day time
+	Server brand: forge
+	Server type: Integrated singleplayer server
+	Tracked entity count: 161
+
+-- Last reload --
+Details:
+	Reload number: 1
+	Reload reason: initial
+	Finished: Yes
+	Packs: vanilla, mod_resources
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.1
+	Minecraft Version ID: 1.21.1
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 21.0.5, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 167484088 bytes (159 MiB) / 1275068416 bytes (1216 MiB) up to 17146314752 bytes (16352 MiB)
+	CPUs: 12
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i7-9850H CPU @ 2.60GHz
+	Identifier: Intel64 Family 6 Model 158 Stepping 13
+	Microarchitecture: Coffee Lake
+	Frequency (GHz): 2.59
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: NVIDIA Quadro RTX 3000
+	Graphics card #0 vendor: NVIDIA
+	Graphics card #0 VRAM (MiB): 6144.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 32.0.15.5612
+	Memory slot #0 capacity (MiB): 16384.00
+	Memory slot #0 clockSpeed (GHz): 2.67
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 16384.00
+	Memory slot #1 clockSpeed (GHz): 2.67
+	Memory slot #1 type: DDR4
+	Memory slot #2 capacity (MiB): 32768.00
+	Memory slot #2 clockSpeed (GHz): 3.20
+	Memory slot #2 type: DDR4
+	Virtual memory max (MiB): 69479.16
+	Virtual memory used (MiB): 23165.00
+	Swap memory total (MiB): 4096.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 28392.99, total: 487499.00
+	Space in storage for workdir (MiB): available: 28392.93, total: 487499.00
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	Launched Version: MOD_DEV
+	Backend library: LWJGL version 3.3.3+5
+	Backend API: Quadro RTX 3000/PCIe/SSE2 GL version 4.6.0 NVIDIA 556.12, NVIDIA Corporation
+	Window size: 1920x1080
+	GFLW Platform: win32
+	GL Caps: Using framebuffer using OpenGL 3.2
+	GL debug messages: 
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	Universe: 400921fb54442d18
+	Type: Integrated Server (map_client.txt)
+	Graphics mode: fancy
+	Render Distance: 12/12 chunks
+	Resource Packs: vanilla, mod_resources
+	Current Language: en_us
+	Locale: fi_FI
+	System encoding: Cp1252
+	File encoding: UTF-8
+	CPU: 12x Intel(R) Core(TM) i7-9850H CPU @ 2.60GHz
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/29, l='ServerLevel[New World]', x=-26.50, y=70.00, z=59.50]]
+	Active Data Packs: vanilla, mod:forge, mod:sagecraft (incompatible)
+	Available Data Packs: bundle, mod:forge, mod:sagecraft (incompatible), trade_rebalance, vanilla
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Stable
+	World Seed: 5957060320722750729
+	ModLauncher: 10.2.2
+	ModLauncher launch target: forge_userdev_client
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		/ slf4jfixer PLUGINSERVICE 
+		/ runtimedistcleaner PLUGINSERVICE 
+		/ runtime_enum_extender PLUGINSERVICE 
+		/ object_holder_definalize PLUGINSERVICE 
+		/ capability_token_subclass PLUGINSERVICE 
+		/ accesstransformer PLUGINSERVICE 
+		/ eventbus PLUGINSERVICE 
+		/ mixin PLUGINSERVICE 
+		/ fml TRANSFORMATIONSERVICE 
+		/ mixin TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		lowcodefml@52
+		minecraft@1.0
+		javafml@52.0.28
+	Mod List: 
+		                                                  |Minecraft                     |minecraft                     |1.21.1              |DONE      |Manifest: NOSIGNATURE
+		                                                  |Forge                         |forge                         |52.0.28             |DONE      |Manifest: NOSIGNATURE
+		main                                              |Sagecraft                     |sagecraft                     |1.0.0               |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: 3aa5ab2c-f46a-407f-ae88-0c306a276e9e
+	FML: 0.0
+	Forge: net.minecraftforge:52.0.28

@@ -8,7 +8,8 @@ import com.mojang.blaze3d.platform.InputConstants; // Add this import
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.client.event.InputEvent; 
+import net.minecraftforge.client.event.InputEvent;
+import com.example.sagecraft.network.MeditationStatePacket; // Add this import
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus; // Import Logger
@@ -62,7 +63,19 @@ public class KeyBindings {
     }
 
     private static void startMeditation() {
-        // TODO: Implement meditation start
+        Minecraft minecraft = Minecraft.getInstance();
+        Player player = minecraft.player;
+        if (player != null) {
+            player.getCapability(QiCapability.CAPABILITY_QI_MANAGER).ifPresent(qi -> {
+                qi.setMeditating(true); // Set the meditation state to true
+                // Send the meditation state packet to the server
+                MeditationStatePacket packet = new MeditationStatePacket(true);
+                PacketHandler.sendToServer(packet);
+                LOGGER.info("Player {} has started meditating.", player.getName().getString());
+            });
+        } else {
+            LOGGER.warn("Player instance is null, cannot start meditation.");
+        }
     }
 
     private static void gainQiFromClick() {
